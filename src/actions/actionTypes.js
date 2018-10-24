@@ -1,0 +1,1 @@
+export const SWITCH_SCREEN = 'SWITCH_SCREEN';

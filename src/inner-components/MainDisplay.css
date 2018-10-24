@@ -1,0 +1,7 @@
+#main-display {
+  position: absolute;
+  left: 250px;
+  top: 0;
+  width: 85%;
+  height: 100%;
+}
