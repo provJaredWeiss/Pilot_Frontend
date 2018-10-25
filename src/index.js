@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 // import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import AppContainer from './containers/AppContainer';
 import * as serviceWorker from './serviceWorker';
 import Auth from './util/Auth';
 
@@ -29,7 +29,7 @@ window.setState = (changes) => {
   render(
     <Provider store={store}>
       {/* <Router> */}
-        <App {...state} />
+        <AppContainer {...state} />
       {/* </Router> */}
     </Provider>
     , document.getElementById('root')

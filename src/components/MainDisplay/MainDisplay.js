@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import MainDisplayNav from './MainDisplayNav';
-import RestOfMainDisplay from './RestOfMainDisplay';
+import ContentNav from '../ContentNav/ContentNav';
+import ContentSection from '../ContentSection/ContentSection';
 import './MainDisplay.css';
 
 class mainDisplay extends Component {
   render() {
     return (
       <div id='main-display'>
-        <MainDisplayNav {...this.props}/>
-        <RestOfMainDisplay {...this.props}/>
+        <ContentNav {...this.props}/>
+        <ContentSection {...this.props}/>
       </div>
     )
   }

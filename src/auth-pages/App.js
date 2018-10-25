@@ -8,6 +8,10 @@ import Callback from './auth-pages/Callback';
 
 class App extends Component {
 
+  componentDidMount() {
+    console.log('whichscreen: ' + this.props.whichScreen)
+  }
+
   render() {
     let mainComponent = '';
     switch(this.props.location) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../inner-components/Header';
-import MainScreen from '../inner-components/MainScreen';
+import Header from '../components/Header/Header';
+import ScreenBelowHeader from '../components/ScreenBelowHeader/ScreenBelowHeader';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -8,7 +8,7 @@ class Dashboard extends Component {
     return (
       <div id='dashboard'>
         <Header {...this.props}/>
-        <MainScreen {...this.props}/>
+        <ScreenBelowHeader {...this.props}/>
       </div>
     )
   }

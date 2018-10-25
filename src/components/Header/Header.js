@@ -6,11 +6,14 @@ class Header extends Component {
     return (
       <header>
         <div id='space-filler'></div>
-        <p>
-          Pilot
-        </p>
-        <button >Switch Screen</button>
+        <div id='title'>
+          <p>
+            Pilot
+          </p>
+        </div>
+        <button onClick={this.props.switchScreen}>Switch Screen</button>
         {/* onClick={this.props.switchScreen} (fxn) */}
+        {/* do i need a button or can it just be a div w/ onclick? */}
       </header>
     )
   }

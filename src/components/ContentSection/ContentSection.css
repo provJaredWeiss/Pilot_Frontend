@@ -1,0 +1,9 @@
+#content-section {
+  position: absolute;
+  top: 65px;
+  width: 100%;
+  height: 92%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
