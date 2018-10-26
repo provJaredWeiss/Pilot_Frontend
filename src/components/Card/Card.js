@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './Card.css';
+import CardHeader from '../CardHeader/CardHeader';
+import CardMetricDisplay from '../CardMetricDisplay/CardMetricDisplay';
+import CardFooter from '../CardFooter/CardFooter';
 
 class Card extends Component {
 
@@ -10,36 +13,20 @@ class Card extends Component {
   // OR, don't req for small card at all, only when clicked on (just show sample img w/ description) -> can expand description, and if user wants more, can click and see what the card would actually look like (fully functioning)
 
 
-  componentDidMount() {
-    // console.log('card remounted') <-- runs only first time we switch to service view
-    const cardName = this.props.whichCard.name;
-    const serviceName = this.props.whichService.name;
-    // fetch(`/getData/${cardName}/${serviceName}`)
-    //   .then(res => res.json())
-    //   .then(data => {
+  //card gets metadata for the metric (and service if each svc will have metadata) and passes as props to subcomponents
+    //subcomponent CardMetricDisplay will get necessary data for graph
 
-    //   })
-  }
 
-  componentDidUpdate() {
-    // console.log('card updated') <-- runs for card or service change
-    const cardName = this.props.whichCard.name;
-    const serviceName = this.props.whichService.name;
-    // fetch(`/getData/${cardName}/${serviceName}`)
-    //   .then(res => res.json())
-    //   .then(data => {
-
-    //   })
-  }
-
-  //parsingDataFxns...() {
-
-  // }
+  //<card> will render <title> <graph> <buttons> <fields> <--(enter timeframe)
+  //I think i need another component called <smallerCard> for when user can choose new ones in profile
+  //^ don't think so anymore, cards will resize, if we want to display sample img instead of actual data, can have a condition somewhere
 
   render() {
     return (
       <div className='card'>
-        I am the card named: {this.props.whichCard.name} for service named: {this.props.whichService.name}
+        <CardHeader {...this.props}/>
+        <CardMetricDisplay {...this.props}/>
+        <CardFooter {...this.props}/>
       </div>
     )
   }

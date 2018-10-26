@@ -1,4 +1,6 @@
 export const SWITCH_SCREEN = 'SWITCH_SCREEN';
-export const SWITCH_CARD = 'SWITCH_CARD';
+// export const SWITCH_METRIC = 'SWITCH_METRIC';
+export const SWITCH_DATASCREEN = 'SWITCH_DATASCREEN';
 export const SWITCH_MAINTAB = 'SWITCH_MAINTAB';
 export const SWITCH_SERVICE = 'SWITCH_SERVICE';
+export const MODIFY_DATA = 'MODIFY_DATA';

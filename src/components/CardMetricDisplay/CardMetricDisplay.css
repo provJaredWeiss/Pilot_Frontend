@@ -1,0 +1,8 @@
+#card-metric-display {
+  height: 80%;
+  width: 100%;
+  background: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

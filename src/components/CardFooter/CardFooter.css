@@ -1,0 +1,11 @@
+#card-footer {
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

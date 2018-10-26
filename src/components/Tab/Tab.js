@@ -10,7 +10,7 @@ class Tab extends Component {
           <p>{this.props.tabName}</p>
         </div> 
         : 
-        <div className='tab' onClick={() => {this.props.switchCard(this.props.index)}}>
+        <div className='tab' onClick={() => {this.props.switchDataScreen(this.props.index)}}>
           <p>{this.props.tabName}</p>
         </div>
     )

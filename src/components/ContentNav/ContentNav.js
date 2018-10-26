@@ -5,7 +5,7 @@ import './ContentNav.css';
 class ContentNav extends Component {
   render() {
     const tabnamesMain = this.props.mainTabs.map((tab) => tab.name);
-    const tabnamesService = this.props.cards.map((card) => card.name);
+    const tabnamesService = this.props.dataScreens.map((dataScreen) => dataScreen.name);
     const tabNames = this.props.whichScreen === 'main' ? tabnamesMain : tabnamesService;
 
     //maybe in these arrays, at beginning put 'left-arrow' and at end 'right-arrow', and <Tab> renders corresponding arrow imgs (as component w/ fxnality to change visable tabs)
@@ -19,7 +19,8 @@ class ContentNav extends Component {
             index={i} 
             tabName={tabname} 
             whichScreen={this.props.whichScreen} 
-            switchCard={this.props.switchCard} 
+            // switchMetric={this.props.switchMetric} 
+            switchDataScreen={this.props.switchDataScreen} 
             switchMainTab={this.props.switchMainTab}
           />
         ))}

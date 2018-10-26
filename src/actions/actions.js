@@ -9,12 +9,22 @@ export const switchMainTab = (newMainIndex) => ({ //needs better name
   newMainIndex: newMainIndex
 });
 
-export const switchCard = (newCardIndex) => ({
-  type: types.SWITCH_CARD,
-  newCardIndex: newCardIndex
+// export const switchMetric = (newMetricIndex) => ({
+//   type: types.SWITCH_METRIC,
+//   newMetricIndex: newMetricIndex
+// });
+
+export const switchDataScreen = (newDataScreenIndex) => ({
+  type: types.SWITCH_DATASCREEN,
+  newDataScreenIndex: newDataScreenIndex
 });
 
 export const switchService = (newServiceIndex) => ({
   type: types.SWITCH_SERVICE,
   newServiceIndex: newServiceIndex
+});
+
+export const modifyData = (newData) => ({
+  type: types.MODIFY_DATA,
+  data: newData
 });

@@ -2,23 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import App from '../App';
 import './AppContainer.css';
-import { switchScreen, switchCard, switchMainTab, switchService } from '../actions/actions';
+import { switchScreen, switchDataScreen, switchMainTab, switchService, modifyData } from '../actions/actions';
 
 const mapStateToProps = state => ({
   whichScreen: state.whichScreen,
-  cards: state.cards,
-  cardIndex: state.cardIndex,
+  metrics: state.metrics,
+  // metricIndex: state.metricIndex,
   mainTabs: state.mainTabs,
   mainIndex: state.mainIndex,
   services: state.services,
-  serviceIndex: state.serviceIndex
+  serviceIndex: state.serviceIndex,
+  data: state.data,
+  attributes: state.attributes, 
+  dataScreens: state.dataScreens,
+  dataScreenIndex: state.dataScreenIndex
 });
 
 const mapDispatchToProps = dispatch => ({
   switchScreen: () => dispatch(switchScreen()),
-  switchCard: (newCardIndex) => dispatch(switchCard(newCardIndex)),
+  // switchMetric: (newMetricIndex) => dispatch(switchMetric(newMetricIndex)),
+  switchDataScreen: (newDataScreenIndex) => dispatch(switchDataScreen(newDataScreenIndex)),
   switchMainTab: (newMainIndex) => dispatch(switchMainTab(newMainIndex)),
-  switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex))
+  switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
+  modifyData: (data) => dispatch(modifyData(data))
 });
 
 class AppContainer extends Component {
