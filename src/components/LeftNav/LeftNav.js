@@ -5,7 +5,7 @@ class LeftNav extends Component {
   render() {
     return (
       <nav>
-        {this.props.services.map((service, i) => <div className='service' key={i} onClick={() => {this.props.switchService(i)}}>{service.name}</div>)}
+        {Object.values(this.props.services).map((service, i) => <div className='service' key={i} onClick={() => {this.props.switchService(i)}}>{service.name}</div>)}
       </nav>
     )
   }

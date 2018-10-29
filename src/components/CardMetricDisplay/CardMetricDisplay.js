@@ -15,22 +15,21 @@ class CardMetricDisplay extends Component {
   constructor() {
     super();
     this.state = {
-      metricInfo: {}
+      // metricInfo: {},
+      data: []
     }
   }
 
   componentDidMount() {
-    for (let i = 0; i < this.props.metrics.length; i++) {
-      if (this.props.metrics[i].name === this.props.whichMetric) this.setState({metricInfo: this.props.metrics[i]})
-    }
+    
   }
 
   //parse out which type of graph
   //depending on type of graph, parse out other info (xVals, yVals, etc.)
 
-  componentWillReceiveProps(nextProps) {
+  // componentWillReceiveProps(nextProps) {
    
-  }
+  // }
 
   //parse props (whichservice, whichmetric) to query state for data
   //if not in state, query data from backend
@@ -41,6 +40,7 @@ class CardMetricDisplay extends Component {
     const yVals = this.props.data.map(obj => obj.avgReqsServedPct);
     return (
       <div id='card-metric-display'>
+        {this.props.whichGraph ? 
         <Plot
           data={[
             // {
@@ -50,14 +50,16 @@ class CardMetricDisplay extends Component {
             //   mode: 'lines+points',
             //   marker: {color: 'red'},
             // },
-            {type: this.state.graphType, x: xVals, y: yVals, mode: 'lines+points', marker: {color: 'red'}},
+            {type: this.props.whichGraph, x: xVals, y: yVals, mode: this.props.whichGraph ? 'lines+points' : '', marker: this.props.whichGraph ? {color: 'red'} : {}},
             // {type: 'bar', x: [1, 2, 3, 5], y: [2, 5, 3, 8]},
           ]}
           // layout={ {title: 'A Fancy Plot'} }
           // responsive={true}
           //^ this doesn't work, probably need to grab div for card then get the size of it, then have width & height be equations
           layout={ {width: 700, height: 500, title: 'A Fancy Plot'} }
-        />        
+        />  
+        : ''    
+      }  
       </div>
     )
   }

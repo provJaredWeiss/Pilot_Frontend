@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './ContentSection.css';
-import Card from '../Card/Card';
+import CardContainer from '../../containers/CardContainer';
 import CardList from '../CardList/CardList';
 
 class ContentSection extends Component {
@@ -22,24 +22,51 @@ class ContentSection extends Component {
 
   componentWillReceiveProps(nextProps) {
     //same as above w/ nextProps then setState
-    console.log('hi')
     const nextDataScreen = nextProps.dataScreens[nextProps.dataScreenIndex];
     this.setState({currentDataScreen: nextDataScreen})
   }
 
   componentDidUpdate() {
-    console.log(this.state.currentDataScreen.cards)
+    // console.log(this.state.currentDataScreen.cards)
   }
 
   render() {
-    this.state.currentDataScreen.cards ? console.log(this.state.currentDataScreen.cards.length) : console.log()
-    const metrics = this.state.currentDataScreen.cards ? this.state.currentDataScreen.cards.map((card) => card.metric) : []
+    // // this.state.currentDataScreen.cards ? console.log(this.state.currentDataScreen.cards.length) : console.log()
+    // const metricIndices = this.state.currentDataScreen.cards ? Object.keys(this.state.currentDataScreen.cards).map((card) => this.state.currentDataScreen.cards[card].metric) : []    //should probably change this to get whole metric info so don't have to later
+    // const metrics = metricIndices.map((metricIndex) => {
+    //   const allMetricIndices = Object.keys(this.props.metrics);
+    //   for (let i = 0; i < allMetricIndices.length; i++) {
+    //     if (metrics[metricIndex].name === metrics[i].name) return metrics[i];
+    //   }
+    // })
+
+
+    //the below fires no matter what, so add condition to only do this if on service page
+    const cards = this.state.currentDataScreen.cards ? Object.values(this.state.currentDataScreen.cards) : '';
+    const metrics = cards ? 
+      cards.map((card) => {
+        const allMetrics = Object.values(this.props.metrics);
+        for (let i = 0; i < allMetrics.length; i++) {
+          if (card.metric === allMetrics[i].name) {
+            return allMetrics[i]
+          }
+        }
+        return 'didnt find';
+      })
+      : [];
+
     return (
       <div id='content-section'>
         {
           this.props.whichScreen === 'service' 
           ? 
-          metrics.length ? metrics.map((metric, i) => <Card key={i} whichMetric={metric} whichService={this.props.services[this.props.serviceIndex]} {...this.props}/> ) : ''
+          metrics.length ? metrics.map((metric, i) => 
+            <CardContainer 
+              key={i} 
+              cardIndex={i} 
+              whichMetric={metric} 
+              whichService={this.props.services[this.props.serviceIndex]} 
+              {...this.props}/> ) : ''
           : 
           <div>
             <p>Rest of Main Display</p> 

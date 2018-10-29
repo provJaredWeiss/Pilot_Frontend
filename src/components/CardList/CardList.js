@@ -13,8 +13,6 @@ class CardList extends Component {
       acc.push(curr);
       return acc;
     }, []);
-    console.log('avaibable metrics')
-    console.log(availableMetrics);
 
     return (
       <div id='cardlist'>

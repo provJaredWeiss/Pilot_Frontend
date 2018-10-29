@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import App from '../App';
-import './AppContainer.css';
+import ContentNav from '../components/ContentNav/ContentNav';
+import ContentSection from '../components/ContentSection/ContentSection';
+import './ContentContainer.css';
 import { switchScreen, switchDataScreen, switchMainTab, switchService, modifyData } from '../actions/actions';
 
 const mapStateToProps = state => ({
@@ -28,15 +29,15 @@ const mapDispatchToProps = dispatch => ({
   modifyData: (data) => dispatch(modifyData(data))
 });
 
-class AppContainer extends Component {
-
+class ContentContainer extends Component {
   render() {
     return (
-      <div id='app-container'>
-        <App {...this.props}/>
+      <div id='card-container'>
+        <ContentNav {...this.props}/>
+        <ContentSection {...this.props}/>
       </div>
     );
   } 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer);

@@ -6,7 +6,7 @@ export const switchScreen = () => ({
 
 export const switchMainTab = (newMainIndex) => ({ //needs better name
   type: types.SWITCH_MAINTAB,
-  newMainIndex: newMainIndex
+  newMainIndex
 });
 
 // export const switchMetric = (newMetricIndex) => ({
@@ -16,15 +16,22 @@ export const switchMainTab = (newMainIndex) => ({ //needs better name
 
 export const switchDataScreen = (newDataScreenIndex) => ({
   type: types.SWITCH_DATASCREEN,
-  newDataScreenIndex: newDataScreenIndex
+  newDataScreenIndex
 });
 
 export const switchService = (newServiceIndex) => ({
   type: types.SWITCH_SERVICE,
-  newServiceIndex: newServiceIndex
+  newServiceIndex
 });
 
 export const modifyData = (newData) => ({
   type: types.MODIFY_DATA,
-  data: newData
+  newData
+});
+
+export const toggleGraph = (newGraphIndex, dataScreenIndex, cardIndex) => ({
+  type: types.TOGGLE_GRAPH,
+  newGraphIndex,
+  dataScreenIndex,
+  cardIndex
 });
