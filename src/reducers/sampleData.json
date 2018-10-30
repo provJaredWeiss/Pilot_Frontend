@@ -1,0 +1,171 @@
+{
+  "metaData": {
+    "metrics": [],
+    "services": [],
+    "startTime": 0,
+    "endTime": 6000,
+    "timeStep": 1000,
+    "buckets": {
+      "service1": [ 
+        {
+          "startTime": 0,
+          "endTime": 1000,
+          "reqCount": 100,
+          "badReqCount": 2,
+          "latency": 40,
+          "cpu": 30,
+          "mem": 10,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        }, 
+        {
+          "startTime": 1000,
+          "endTime": 2000,
+          "reqCount": 100,
+          "badReqCount": 1,
+          "latency": 30,
+          "cpu": 50,
+          "mem": 15,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 2000,
+          "endTime": 3000,
+          "reqCount": 100,
+          "badReqCount": 4,
+          "latency": 70,
+          "cpu": 60,
+          "mem": 13,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 3000,
+          "endTime": 4000,
+          "reqCount": 100,
+          "badReqCount": 5,
+          "latency": 70,
+          "cpu": 20,
+          "mem": 13,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 4000,
+          "endTime": 5000,
+          "reqCount": 100,
+          "badReqCount": 3,
+          "latency": 60,
+          "cpu": 40,
+          "mem": 14,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 5000,
+          "endTime": 6000,
+          "reqCount": 100,
+          "badReqCount": 2,
+          "latency": 50,
+          "cpu": 30,
+          "mem": 10,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        }
+      ],
+      "service2": [
+        {
+          "startTime": 0,
+          "endTime": 1000,
+          "reqCount": 100,
+          "badReqCount": 1,
+          "latency": 30,
+          "cpu": 20,
+          "mem": 2,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        }, 
+        {
+          "startTime": 1000,
+          "endTime": 2000,
+          "reqCount": 100,
+          "badReqCount": 2,
+          "latency": 40,
+          "cpu": 12,
+          "mem": 3,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 2000,
+          "endTime": 3000,
+          "reqCount": 100,
+          "badReqCount": 2,
+          "latency": 50,
+          "cpu": 14,
+          "mem": 3,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 3000,
+          "endTime": 4000,
+          "reqCount": 100,
+          "badReqCount": 1,
+          "latency": 40,
+          "cpu": 30,
+          "mem": 5,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 4000,
+          "endTime": 5000,
+          "reqCount": 100,
+          "badReqCount": 3,
+          "latency": 40,
+          "cpu": 10,
+          "mem": 4,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        },
+        {
+          "startTime": 5000,
+          "endTime": 6000,
+          "reqCount": 100,
+          "badReqCount": 1,
+          "latency": 20,
+          "cpu": 20,
+          "mem": 3,
+          "diskSpace": 20,
+          "p50": 0.9,
+          "p90": 0.1,
+          "p95": 0.05
+        }
+      ]
+    }
+  }
+}

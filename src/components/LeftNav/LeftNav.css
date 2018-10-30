@@ -13,6 +13,11 @@ nav {
   /* margin-bottom: 3px; */
   border-bottom: 1px solid black;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+.fill-space {
+  width: 30px;
+  height: 30px;
 }

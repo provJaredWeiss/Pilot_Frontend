@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import './CardModifierButton.css';
+import './GraphModifierButton.css';
 
-class CardModifierButton extends Component {
+class GraphModifierButton extends Component { 
   componentDidMount() {
-    console.log(this.props.graphIndex)
+    // console.log('graph button index')
+    // console.log(this.props.graphButtonIndex)
   }
+
   render() {
     return (
       <div id='card-modifier-button'>
         <button onClick={() => {this.props.toggleGraph(
-          this.props.graphIndex, 
+          this.props.graphButtonIndex, 
           this.props.dataScreenIndex, 
           this.props.cardIndex)}}>{this.props.graphName}</button>
       </div>
@@ -17,4 +19,4 @@ class CardModifierButton extends Component {
   }
 }
 
-export default CardModifierButton;
+export default GraphModifierButton;

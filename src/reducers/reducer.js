@@ -2,6 +2,9 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   whichScreen: 'main', //as opposed to 'service'
+  selectedCardIndex: 0,
+  modifyServicesMode: false,
+  modifyMetricsMode: false,
   metrics: {
     0: {
       name: 'Metric 1',
@@ -10,7 +13,8 @@ const initialState = {
       query: {
         startTime: 0,
         endTime: 60,     //can any metric to any dashboard, these params here are generic
-        api: ''          //when user modifies params of specific card, redux action updates their specific card params, but not this generic info here
+        timeStep: 10
+        // api: ''          //when user modifies params of specific card, redux action updates their specific card params, but not this generic info here
       },
       supportedGraphs: ['scatter', 'bar'],
       graphIndex: 0
@@ -71,25 +75,34 @@ const initialState = {
       status: 'ok'
     },
   },
-  serviceIndex: '0',
+  serviceIndices: ['0'],
   dataScreens: {
     0: {
       name: 'DataScreen 1',
       cards: {
         0: {
-          metric: 'Metric 1',
+          metrics: ['0'],
+          services: {
+            0: true
+          },
           order: 1,
           size: 1,   // maybe call position and do [1,1]
           graphIndex: 0
         },
         1: {
-          metric: 'Metric 2',
+          metrics: ['1'],
+          services: {
+            0: true
+          },
           order: 2,
           size: 1,
           graphIndex: 0  
         },
         2: {
-          metric: 'Metric 3',
+          metrics: ['2'],
+          services: {
+            0: true
+          },
           order: 3,
           size: 2,
           graphIndex: 0
@@ -100,13 +113,19 @@ const initialState = {
       name: 'DataScreen 2',
       cards: {
         0: {
-          metric: 'Metric 4',
+          metrics: ['3'],
+          services: {
+            0: true
+          },
           order: 1,
           size: 1,
           graphIndex: 0
         },
         1: {
-          metric: 'Metric 5',
+          metrics: ['4'],
+          services: {
+            0: true
+          },
           order: 2,
           size: 1,
           graphIndex: 0
@@ -117,7 +136,10 @@ const initialState = {
       name: 'DataScreen 3',
       cards: {
         0: {
-          metric: 'Metric 1',
+          metrics: ['0'],
+          services: {
+            0: true
+          },
           order: 1,
           size: 1,
           graphIndex: 0
@@ -180,20 +202,58 @@ const reducer = (state=initialState, action) => {
       return Object.assign({}, state, {
         mainIndex: newMainIndex
       });
-    case types.SWITCH_SERVICE:
-      let newServiceIndex = action.newServiceIndex;
+    // case types.SWITCH_SERVICE:
+    //   let newServiceIndex = action.newServiceIndex;
+    //   return Object.assign({}, state, {
+    //     serviceIndex: newServiceIndex
+    //   });
+    case types.TOGGLE_SERVICE:
+      let serviceIndex = action.serviceIndex;
+      let alreadyChosen = action.alreadyChosen;
+      let DSIndex = action.dataScreenIndex;
+      let cardIndx = action.selectedCardIndex;
+      let services = state.dataScreens[DSIndex].cards[cardIndx].services;
+      
+      if (alreadyChosen) delete services[serviceIndex];
+      if (!alreadyChosen) services[serviceIndex] = true;   
+
       return Object.assign({}, state, {
-        serviceIndex: newServiceIndex
-      });
+        ...state,
+        dataScreens: {
+          ...state.dataScreens,
+          [DSIndex]: {
+            ...state.dataScreens[DSIndex],
+            cards: {
+              ...state.dataScreens[DSIndex].cards,
+              [cardIndx]: {
+                ...state.dataScreens[DSIndex].cards[cardIndx],
+                services 
+              }
+            }
+          }
+        }
+      })
     case types.MODIFY_DATA:
       let newData = action.newData;
       return Object.assign({}, state, {
         data: newData
-    });
+      });
+    case types.MODIFY_SERVICES_MODE:
+      let cardIndex=action.cardIndex;
+      return Object.assign({}, state, {
+        modifyServicesMode: !state.modifyServicesMode,
+        selectedCardIndex: cardIndex
+      });
+    case types.MODIFY_METRICS_MODE:
+      let cardInd=action.cardIndex;
+      return Object.assign({}, state, {
+        modifyMetricsMode: !state.modifyMetricsMode,
+        selectedCardIndex: cardInd
+      });
     case types.TOGGLE_GRAPH: 
       let newGraphIndex = action.newGraphIndex;
       let dataScreenIndex = action.dataScreenIndex;
-      let cardIndex = action.cardIndex;
+      let cardIdx = action.cardIndex;
       return Object.assign({}, state, {
         ...state,
         dataScreens: {
@@ -202,28 +262,13 @@ const reducer = (state=initialState, action) => {
             ...state.dataScreens[dataScreenIndex],
             cards: {
               ...state.dataScreens[dataScreenIndex].cards,
-              [cardIndex]: {
-                ...state.dataScreens[dataScreenIndex].cards[cardIndex],
+              [cardIdx]: {
+                ...state.dataScreens[dataScreenIndex].cards[cardIdx],
                 graphIndex: newGraphIndex 
               }
             }
           }
         }
-      // return Object.assign({}, state, {
-      //   ...state,
-      //   dataScreens: {
-      //     ...state.dataScreens,
-      //     [dataScreenIndex]: {
-      //       ...state.dataScreens[dataScreenIndex],
-      //       cards: {
-      //         ...state.dataScreens[dataScreenIndex].cards,
-      //         [cardIndex]: {
-      //           ...state.dataScreens[dataScreenIndex].cards[cardIndex],
-      //           graphIndex: newGraphIndex 
-      //         }
-      //       }
-      //     }
-      //   }
       })
     default:
       return state;
@@ -231,3 +276,12 @@ const reducer = (state=initialState, action) => {
 };
 
 export default reducer;
+
+// cards: {
+//   0: {
+//     metrics: ['0'],
+//     services: ['0'],
+//     order: 1,
+//     size: 1,   // maybe call position and do [1,1]
+//     graphIndex: 0
+//   },

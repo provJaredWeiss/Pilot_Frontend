@@ -1,0 +1,17 @@
+#choose-metrics {
+  /* position: absolute;
+  bottom: 0;
+  left: 0; */position: absolute;
+  /* top: 850px; */
+  height: 100px;
+  bottom: 0;
+  /* height: 50%; */
+  /* width: 100%; */
+  left: 250px;
+  right: 0;
+  border: 1px solid rgb(186, 186, 186);
+  z-index: 1;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+}

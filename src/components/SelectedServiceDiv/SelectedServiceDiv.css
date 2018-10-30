@@ -1,0 +1,12 @@
+.selected-service-div {
+  width: 30px;
+  height: 30px;
+  background-color: green;
+  border: 1px solid black;
+}
+
+.not-selected-service-div {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import App from '../App';
 import './AppContainer.css';
-import { switchScreen, switchDataScreen, switchMainTab, switchService, modifyData } from '../actions/actions';
+import { switchScreen, switchDataScreen, switchMainTab, toggleService, modifyData } from '../actions/actions';
 
 const mapStateToProps = state => ({
   whichScreen: state.whichScreen,
@@ -16,6 +16,9 @@ const mapStateToProps = state => ({
   attributes: state.attributes, 
   dataScreens: state.dataScreens,
   dataScreenIndex: state.dataScreenIndex,
+  modifyServicesMode: state.modifyServicesMode,
+  modifyMetricsMode: state.modifyMetricsMode,
+  selectedCardIndex: state.selectedCardIndex
   // modifiers: state.modifiers
 });
 
@@ -24,8 +27,9 @@ const mapDispatchToProps = dispatch => ({
   // switchMetric: (newMetricIndex) => dispatch(switchMetric(newMetricIndex)),
   switchDataScreen: (newDataScreenIndex) => dispatch(switchDataScreen(newDataScreenIndex)),
   switchMainTab: (newMainIndex) => dispatch(switchMainTab(newMainIndex)),
-  switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
-  modifyData: (data) => dispatch(modifyData(data))
+  // switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
+  modifyData: (data) => dispatch(modifyData(data)),
+  toggleService: (serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => dispatch(toggleService(serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex))
 });
 
 class AppContainer extends Component {

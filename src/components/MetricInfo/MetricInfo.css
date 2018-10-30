@@ -1,0 +1,31 @@
+.metric-info {
+  /* height: 100% <-- necessary?
+  flex 1 1 or whatever */
+  border: 1px solid rgb(130, 130, 130);
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  margin: 2.5px;
+  box-shadow: 0px 4px 14px 0px rgba(108, 108, 108, 0.75);
+
+  /* display: flex; */
+}
+
+.left-half {
+  /* flex: 1 1 auto; */
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid rgb(223, 223, 223);
+}
+
+.right-half {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-left: 1px solid black; */
+
+  /* border: 1px solid black; */
+  /* flex: 1 1 auto; */
+}

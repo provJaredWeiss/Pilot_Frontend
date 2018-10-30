@@ -20,11 +20,20 @@ class CardMetricDisplay extends Component {
     }
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
-    
+    //whichService is a prop
+    //whichGraph is a prop
+    //dataScreen graph index is/should be a prop
+    //metric (prop) comes with default query params
+    //metrics in query shoule be props too... select by card? probs
+    //services in query should be props too... select by card? probs
   }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   //parse out which type of graph
+  //use whichService
   //depending on type of graph, parse out other info (xVals, yVals, etc.)
 
   // componentWillReceiveProps(nextProps) {
@@ -41,7 +50,8 @@ class CardMetricDisplay extends Component {
     return (
       <div id='card-metric-display'>
         {this.props.whichGraph ? 
-        <Plot
+        <Plot 
+          className='plot'
           data={[
             // {
             //   x: [1, 2, 3, 5],
@@ -50,7 +60,7 @@ class CardMetricDisplay extends Component {
             //   mode: 'lines+points',
             //   marker: {color: 'red'},
             // },
-            {type: this.props.whichGraph, x: xVals, y: yVals, mode: this.props.whichGraph ? 'lines+points' : '', marker: this.props.whichGraph ? {color: 'red'} : {}},
+            {type: this.props.whichGraph, x: xVals, y: yVals, mode: this.props.whichGraph === 'scatter' ? 'lines+points' : '', marker: this.props.whichGraph === 'scatter' ? {color: 'red'} : {}},
             // {type: 'bar', x: [1, 2, 3, 5], y: [2, 5, 3, 8]},
           ]}
           // layout={ {title: 'A Fancy Plot'} }

@@ -8,8 +8,8 @@ class CardFooter extends Component {
       <div id='card-footer'>
         <CardModifiers 
           {...this.props} 
-          graphs={this.props.whichMetric.supportedGraphs ? this.props.whichMetric.supportedGraphs : ''} 
-          modifiers={this.props.whichMetric.modifiers ? this.props.whichMetric.modifiers : ''}
+          graphs={this.props.supportedGraphs ? this.props.supportedGraphs : ''} 
+          // modifiers={this.props.whichMetric.modifiers ? this.props.whichMetric.modifiers : ''}
         />
       </div>
     )
