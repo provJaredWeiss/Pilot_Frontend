@@ -33,6 +33,14 @@ export const toggleService = (serviceIndex, alreadyChosen, dataScreenIndex, sele
   selectedCardIndex
 });
 
+export const toggleMetric = (metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => ({
+  type: types.TOGGLE_METRIC,
+  metricIndex, 
+  alreadyChosen, 
+  dataScreenIndex, 
+  selectedCardIndex
+});
+
 export const modifyData = (newData) => ({
   type: types.MODIFY_DATA,
   newData

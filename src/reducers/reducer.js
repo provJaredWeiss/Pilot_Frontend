@@ -81,7 +81,9 @@ const initialState = {
       name: 'DataScreen 1',
       cards: {
         0: {
-          metrics: ['0'],
+          metrics: {
+            0: true
+          },
           services: {
             0: true
           },
@@ -90,7 +92,9 @@ const initialState = {
           graphIndex: 0
         },
         1: {
-          metrics: ['1'],
+          metrics: {
+            1: true
+          },
           services: {
             0: true
           },
@@ -99,7 +103,9 @@ const initialState = {
           graphIndex: 0  
         },
         2: {
-          metrics: ['2'],
+          metrics: {
+            2: true
+          },
           services: {
             0: true
           },
@@ -113,7 +119,9 @@ const initialState = {
       name: 'DataScreen 2',
       cards: {
         0: {
-          metrics: ['3'],
+          metrics: {
+            3: true
+          },
           services: {
             0: true
           },
@@ -122,7 +130,9 @@ const initialState = {
           graphIndex: 0
         },
         1: {
-          metrics: ['4'],
+          metrics: {
+            4: true
+          },
           services: {
             0: true
           },
@@ -136,7 +146,9 @@ const initialState = {
       name: 'DataScreen 3',
       cards: {
         0: {
-          metrics: ['0'],
+          metrics: {
+            0: true
+          },
           services: {
             0: true
           },
@@ -228,6 +240,32 @@ const reducer = (state=initialState, action) => {
               [cardIndx]: {
                 ...state.dataScreens[DSIndex].cards[cardIndx],
                 services 
+              }
+            }
+          }
+        }
+      })
+    case types.TOGGLE_METRIC:
+      let metricIndex = action.metricIndex;
+      let alrdyChosen = action.alreadyChosen;
+      let DScIndex = action.dataScreenIndex;
+      let crdIndex = action.selectedCardIndex;
+      let metrics = state.dataScreens[DScIndex].cards[crdIndex].metrics;
+      
+      if (alrdyChosen) delete metrics[metricIndex];
+      if (!alrdyChosen) metrics[metricIndex] = true;   
+
+      return Object.assign({}, state, {
+        ...state,
+        dataScreens: {
+          ...state.dataScreens,
+          [DScIndex]: {
+            ...state.dataScreens[DScIndex],
+            cards: {
+              ...state.dataScreens[DScIndex].cards,
+              [crdIndex]: {
+                ...state.dataScreens[DScIndex].cards[crdIndex],
+                metrics 
               }
             }
           }

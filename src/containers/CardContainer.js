@@ -20,7 +20,7 @@ class CardContainer extends Component {
       <div id='card-container'>
         <Card 
           whichGraph={this.props.supportedGraphs ? this.props.supportedGraphs[this.props.graphIndex] : ''}
-          metricInfos={this.props.metricIndices ? this.props.metricIndices.map((metricIndex) => this.props.metrics[metricIndex]) : ''}
+          metricInfos={this.props.metricsOfCard ? Object.keys(this.props.metricsOfCard).map((metricIndex) => this.props.metrics[metricIndex]) : ''}
           serviceInfos={this.props.servicesOfCard ? Object.keys(this.props.servicesOfCard).map((serviceIndex) => this.props.services[serviceIndex]) : ''}
           {...this.props}
           // whichGraph={this.props.whichMetric.supportedGraphs ? this.props.whichMetric.supportedGraphs[this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.cardIndex].graphIndex] : ''} {...this.props}

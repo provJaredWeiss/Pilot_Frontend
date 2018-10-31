@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MetricInfo.css';
+import SelectedMetricDiv from '../SelectedMetricDiv/SelectedMetricDiv';
 
 class MetricInfo extends Component {
   render() {
@@ -12,6 +13,7 @@ class MetricInfo extends Component {
         <div className='right-half'>
           <h4>img will go here</h4>
           {/* <img></img> */}
+          <SelectedMetricDiv {...this.props}/>
         </div>
       </div>
     )

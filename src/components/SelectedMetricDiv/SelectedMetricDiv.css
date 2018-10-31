@@ -1,0 +1,14 @@
+.selected-metric-div {
+  width: 30px;
+  height: 30px;
+  background-color: green;
+  border: 1px solid black;
+  z-index: 10;
+}
+
+.not-selected-metric-div {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  z-index: 10;
+}

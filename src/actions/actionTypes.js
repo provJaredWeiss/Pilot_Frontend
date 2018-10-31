@@ -5,6 +5,7 @@ export const SWITCH_MAINTAB = 'SWITCH_MAINTAB';
 
 // export const SWITCH_SERVICE = 'SWITCH_SERVICE';
 export const TOGGLE_SERVICE = 'TOGGLE_SERVICE';
+export const TOGGLE_METRIC = 'TOGGLE_METRIC';
 
 export const MODIFY_DATA = 'MODIFY_DATA';
 

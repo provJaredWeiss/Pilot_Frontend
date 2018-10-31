@@ -17,13 +17,13 @@ class ContentSection extends Component {
     //put those attributes in array (array of card names w/ specs)
     //in render, will map the cards as components passing specs as props
     const currentDataScreen = this.props.dataScreens[this.props.dataScreenIndex];
-    this.setState({currentDataScreen})
+    this.setState({ currentDataScreen })
   }
 
   componentWillReceiveProps(nextProps) {
     //same as above w/ nextProps then setState
     const nextDataScreen = nextProps.dataScreens[nextProps.dataScreenIndex];
-    this.setState({currentDataScreen: nextDataScreen})
+    this.setState({ currentDataScreen: nextDataScreen })
   }
 
   componentDidUpdate() {
@@ -73,26 +73,26 @@ class ContentSection extends Component {
             {this.props.mainTabs[this.props.mainIndex].name === 'Service Metrics' ? <CardList {...this.props}/> : ''}
             <button onClick={this.props.auth.logout}>Log Out</button>
           </div> */}
-        
+
         {this.props.whichScreen === 'service'
-        ?
-          cards ? cards.map((card, i) => 
+          ?
+          cards ? cards.map((card, i) =>
             <CardContainer                   //maybe i want to get metricInfo for multiple metrics per card here?
-              key={i} 
-              cardIndex={i} 
-              metricIndices={card.metrics ? card.metrics : null}
-              servicesOfCard={card.services ? card.services : null} 
+              key={i}
+              cardIndex={i}
+              metricsOfCard={card.metrics ? card.metrics : null}
+              servicesOfCard={card.services ? card.services : null}
               order={card.order ? card.order : null}
               size={card.size ? card.size : null}
               card={card}
-              supportedGraphs={card.metrics && card.metrics.length ? this.props.metrics[card.metrics[0]].supportedGraphs : ''}  //this assumes that multiple metrics on same card have same supported graphs b/c we are getting the supportedGraphs info from only one metric, maybe later i will have to isolate graphs for each metric
+              supportedGraphs={card.metrics && Object.keys(card.metrics).length ? this.props.metrics[Object.keys(card.metrics)[0]].supportedGraphs : ''}  //this assumes that multiple metrics on same card have same supported graphs b/c we are getting the supportedGraphs info from only one metric, maybe later i will have to isolate graphs for each metric
               graphIndex={card.graphIndex || card.graphIndex === 0 ? card.graphIndex : ''}
               {...this.props}
             />) : ''
           :
           <div>
-            <p>Rest of Main Display</p> 
-            {this.props.mainTabs[this.props.mainIndex].name === 'Service Metrics' ? <CardList {...this.props}/> : ''}
+            <p>Rest of Main Display</p>
+            {this.props.mainTabs[this.props.mainIndex].name === 'Service Metrics' ? <CardList {...this.props} /> : ''}
             <button onClick={this.props.auth.logout}>Log Out</button>
           </div>
         }
