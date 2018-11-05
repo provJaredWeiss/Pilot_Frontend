@@ -25,17 +25,18 @@ export const switchDataScreen = (newDataScreenIndex) => ({
 //   newServiceIndex
 // });
 
-export const toggleService = (serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => ({
+export const toggleService = (serviceID, alreadyChosen, dataScreenIndex, selectedCardIndex, whichMetric) => ({
   type: types.TOGGLE_SERVICE,
-  serviceIndex, 
+  serviceID, 
   alreadyChosen, 
   dataScreenIndex, 
-  selectedCardIndex
+  selectedCardIndex,
+  whichMetric
 });
 
-export const toggleMetric = (metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => ({
+export const toggleMetric = (metricID, alreadyChosen, dataScreenIndex, selectedCardIndex) => ({
   type: types.TOGGLE_METRIC,
-  metricIndex, 
+  metricID, 
   alreadyChosen, 
   dataScreenIndex, 
   selectedCardIndex
@@ -53,12 +54,15 @@ export const toggleGraph = (newGraphIndex, dataScreenIndex, cardIndex) => ({
   cardIndex
 });
 
-export const modifyServicesMode = (cardIndex) => ({
-  type: types.MODIFY_SERVICES_MODE,
+export const toggleEditCardMode = (dataScreenIndex, cardIndex) => ({
+  type: types.TOGGLE_EDIT_CARD_MODE,
+  dataScreenIndex,
   cardIndex
 });
 
-export const modifyMetricsMode = (cardIndex) => ({
-  type: types.MODIFY_METRICS_MODE,
-  cardIndex
+export const toggleEditMetricMode = (dataScreenIndex, cardIndex, metricIndex) => ({
+  type: types.TOGGLE_EDIT_METRIC_MODE,
+  dataScreenIndex,
+  cardIndex,
+  metricIndex
 });

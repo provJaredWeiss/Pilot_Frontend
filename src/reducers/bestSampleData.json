@@ -1,0 +1,94 @@
+{ 
+  "metrics": { //will all metrics be available for all roles? Will some at least be weighted for ppl w/ certain roles and sorted as such?
+    "0": {
+      "name": "Metric 1",
+                                                        //dont think so anymore --> do cluster then team or team then cluster THEN services?  
+      "specs": {
+        "type": "timeSeries",  //necessary? if so, add this to metric info in reducer
+        "startTime": 0,
+        "endTime": 6000, //this stuff can initially be taken from metricInfo
+        "timeStep": 1000
+      },
+      "services": {
+        "0": { //these keys will be index of services metadata...? Will those indices update based on what cluster/team we're looking at?
+          "name": "Service 1",
+          "cluster": 0, //index of cluster info? or in more complex service info?
+          "team": 0, //index of team info? or in more complex service info?
+          "buckets": {
+            "0": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 10
+            }, 
+            "1": {
+              "startTime": 1000,
+              "endTime": 2000,
+              "data": 10
+            }, 
+            "2": {
+              "startTime": 2000,
+              "endTime": 3000,
+              "data": 10
+            }, 
+            "3": {
+              "startTime": 3000,
+              "endTime": 4000,
+              "data": 10
+            }, 
+            "4": {
+              "startTime": 4000,
+              "endTime": 5000,
+              "data": 10
+            }, 
+            "5": {
+              "startTime": 5000,
+              "endTime": 6000,
+              "data": 10
+            }
+          }
+        },
+        "1": {
+          "name": "Service 2",
+          "specs": {
+            "type": "timeSeries",
+            "startTime": 0,
+            "endTime": 6000,
+            "timeStep": 1000
+          },
+          "buckets": {
+            "0": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }, 
+            "1": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }, 
+            "2": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }, 
+            "3": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }, 
+            "4": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }, 
+            "5": {
+              "startTime": 0,
+              "endTime": 1000,
+              "data": 20
+            }
+          }
+        }
+      }
+    }
+  }
+}

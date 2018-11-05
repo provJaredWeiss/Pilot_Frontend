@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Card.css';
 import CardHeader from '../CardHeader/CardHeader';
-import CardMetricDisplay from '../CardMetricDisplay/CardMetricDisplay';
+import CardMain from '../CardMain/CardMain';
 import CardFooter from '../CardFooter/CardFooter';
 
 class Card extends Component {
@@ -25,7 +25,7 @@ class Card extends Component {
     return (
       <div className='card'>
         <CardHeader {...this.props}/>
-        <CardMetricDisplay {...this.props}/>
+        <CardMain {...this.props}/>
         <CardFooter {...this.props}/>
       </div>
     )

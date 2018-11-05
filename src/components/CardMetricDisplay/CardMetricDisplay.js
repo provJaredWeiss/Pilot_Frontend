@@ -16,18 +16,30 @@ class CardMetricDisplay extends Component {
     super();
     this.state = {
       // metricInfo: {},
-      data: []
+      data: [],
+      xVals: [],
+      yVals: [],
     }
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
+  //query store data for services and metrics for this specific card... also start time, end time, timestep
+    //but only query for those services and metrics, not extra stuff
+
+
     //whichService is a prop
     //whichGraph is a prop
     //dataScreen graph index is/should be a prop
     //metric (prop) comes with default query params
     //metrics in query shoule be props too... select by card? probs
     //services in query should be props too... select by card? probs
+    const xVals = this.props.data.map((obj, i) => obj.timebenchmark + obj.timebenchmark * i);
+    const yVals = this.props.data.map(obj => obj.avgReqsServedPct);
+    this.setState({
+      xVals, 
+      yVals
+    })
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -45,8 +57,6 @@ class CardMetricDisplay extends Component {
   //use this.props.modifyData() to update data in state
 
   render() {
-    const xVals = this.props.data.map((obj, i) => obj.timebenchmark + obj.timebenchmark * i);
-    const yVals = this.props.data.map(obj => obj.avgReqsServedPct);
     return (
       <div id='card-metric-display'>
         {this.props.whichGraph ? 
@@ -60,7 +70,7 @@ class CardMetricDisplay extends Component {
             //   mode: 'lines+points',
             //   marker: {color: 'red'},
             // },
-            {type: this.props.whichGraph, x: xVals, y: yVals, mode: this.props.whichGraph === 'scatter' ? 'lines+points' : '', marker: this.props.whichGraph === 'scatter' ? {color: 'red'} : {}},
+            {type: this.props.whichGraph, x: this.state.xVals, y: this.state.yVals, mode: this.props.whichGraph === 'scatter' ? 'lines+points' : '', marker: this.props.whichGraph === 'scatter' ? {color: 'red'} : {}},
             // {type: 'bar', x: [1, 2, 3, 5], y: [2, 5, 3, 8]},
           ]}
           // layout={ {title: 'A Fancy Plot'} }
@@ -68,8 +78,7 @@ class CardMetricDisplay extends Component {
           //^ this doesn't work, probably need to grab div for card then get the size of it, then have width & height be equations
           layout={ {width: 700, height: 500, title: 'A Fancy Plot'} }
         />  
-        : ''    
-      }  
+        : ''}   
       </div>
     )
   }

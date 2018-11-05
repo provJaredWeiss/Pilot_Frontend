@@ -10,10 +10,14 @@ class GraphModifierButton extends Component {
   render() {
     return (
       <div id='card-modifier-button'>
-        <button onClick={() => {this.props.toggleGraph(
-          this.props.graphButtonIndex, 
-          this.props.dataScreenIndex, 
-          this.props.cardIndex)}}>{this.props.graphName}</button>
+        <button  
+          onClick={() => {
+            this.props.toggleGraph(
+              this.props.graphButtonIndex, 
+              this.props.dataScreenIndex, 
+              this.props.cardIndex
+            )}
+          }>{this.props.graphName}</button>
       </div>
     )
   }

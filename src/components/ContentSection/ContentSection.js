@@ -80,12 +80,15 @@ class ContentSection extends Component {
             <CardContainer                   //maybe i want to get metricInfo for multiple metrics per card here?
               key={i}
               cardIndex={i}
-              metricsOfCard={card.metrics ? card.metrics : null}
-              servicesOfCard={card.services ? card.services : null}
+              // metricsOfCard={card.metrics ? card.metrics : null}
+              // servicesOfCard={
+              //   card.metrics ? 
+              //     Object.values(card.metrics).reduce((acc, curr) => Object.assign(acc, curr.services), {})
+              //   : null}
               order={card.order ? card.order : null}
               size={card.size ? card.size : null}
               card={card}
-              supportedGraphs={card.metrics && Object.keys(card.metrics).length ? this.props.metrics[Object.keys(card.metrics)[0]].supportedGraphs : ''}  //this assumes that multiple metrics on same card have same supported graphs b/c we are getting the supportedGraphs info from only one metric, maybe later i will have to isolate graphs for each metric
+              supportedGraphs={card.metrics && Object.keys(card.metrics).length ? this.props.metricInfo[Object.keys(card.metrics)[0]].supportedGraphs : ''}  //this assumes that multiple metrics on same card have same supported graphs b/c we are getting the supportedGraphs info from only one metric, maybe later i will have to isolate graphs for each metric
               graphIndex={card.graphIndex || card.graphIndex === 0 ? card.graphIndex : ''}
               {...this.props}
             />) : ''

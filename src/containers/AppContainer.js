@@ -6,19 +6,23 @@ import { switchScreen, switchDataScreen, switchMainTab, toggleService, toggleMet
 
 const mapStateToProps = state => ({
   whichScreen: state.whichScreen,
-  metrics: state.metrics,
-  // metricIndex: state.metricIndex,
+  metricInfo: state.metricInfo,
   mainTabs: state.mainTabs,
   mainIndex: state.mainIndex,
-  services: state.services,
+  serviceInfo: state.serviceInfo,
   serviceIndex: state.serviceIndex,
   data: state.data,
   attributes: state.attributes, 
   dataScreens: state.dataScreens,
   dataScreenIndex: state.dataScreenIndex,
-  modifyServicesMode: state.modifyServicesMode,
-  modifyMetricsMode: state.modifyMetricsMode,
-  selectedCardIndex: state.selectedCardIndex
+  editCardMode: state.editCardMode,
+  selectedCardIndex: state.selectedCardIndex,
+  whichClusters: state.whichClusters,
+  whichTeams: state.whichTeams,
+  teamInfo: state.teamInfo,
+  clusterInfo: state.clusterInfo,
+  editMetricMode: state.editMetricMode,
+  whichMetric: state.whichMetric
   // modifiers: state.modifiers
 });
 

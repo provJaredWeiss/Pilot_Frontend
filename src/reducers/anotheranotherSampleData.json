@@ -1,0 +1,26 @@
+{
+  "data": {           // i think this is not good b/c diff time-series data might want diff timeframes & timesteps (e.g. latency vs. pipeline data)
+    "0": {
+      "type": "timeSeries",      //add type to reducer metric info
+      "metaData": {
+        "startTime": 0,
+        "endTime": 6000,
+        "timeStep": 1000,
+        "services": ["", ""],
+        "metrics": [", "]
+      },
+      "buckets": {
+        "0": {
+          "startTime": 0,
+          "endTime": 1000,
+          "data": {
+            "metric1": ["data for service 1", "data for service 2", "etc."],
+            "metric2": ["data for service 1", "data for service 2", "etc."]
+          }
+        }
+      }
+
+    }
+  }
+  
+}

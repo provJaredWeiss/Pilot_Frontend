@@ -7,12 +7,12 @@ class ChooseMetrics extends Component {
     return (
       <div id='choose-metrics'>
         {/* <p>choose metrics</p> */}
-        {Object.values(this.props.metrics).map((metric, i) => 
+        {Object.values(this.props.metricInfo).map((metric, i) => 
           <MetricInfo 
             key={i} 
-            metricIndex={i}
+            metricID={metric.id}
             metric={metric}
-            alreadyChosen={this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.selectedCardIndex].metrics[i.toString()] ? true : false}
+            alreadyChosen={this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.selectedCardIndex].metrics[metric.id] ? true : false}
             {...this.props}
           />
         )}

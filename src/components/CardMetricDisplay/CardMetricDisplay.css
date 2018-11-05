@@ -1,10 +1,11 @@
 #card-metric-display {
-  height: 80%;
+  height: 100%;
   width: 100%;
-  background: lightgray;
+  /* background: lightgray; */
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 }
 
 .plot {
@@ -12,5 +13,6 @@
   padding: 0;
   display: flex;
   align-self: center;
+  z-index: 0
   /* box-shadow: 0px 1px 11px 0px rgba(0,0,0,0.75) */
 }

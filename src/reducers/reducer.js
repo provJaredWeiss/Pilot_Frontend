@@ -1,12 +1,18 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-  whichScreen: 'main', //as opposed to 'service'
+  whichScreen: 'service', //switch to 'main' when app is launched
   selectedCardIndex: 0,
-  modifyServicesMode: false,
-  modifyMetricsMode: false,
-  metrics: {
+  editCardMode: false,
+  whichTeams: [0, 1, 2, 3, 4, 5, 6, 7], //<-- teamID
+  whichClusters: [0, 1], //represents 'all clusters' (i've only put in 2 so far)
+  whichRole: 0, //<-- roleID (to be added eventually)
+  dataScreenIndex: '0',
+  whichMetric: '',
+  editMetricMode: false,
+  metricInfo: {
     0: {
+      id: 0,
       name: 'Metric 1',
       description: '....', // 2 choices: either have all Metric info in state for all Metrics, or just one prop of state that has the props of the spec Metric we're looking at (prbly the latter)
       sampleImg: '',       // ^ for option 2, using the name of the Metric and service, we will look up necessary data...
@@ -17,20 +23,25 @@ const initialState = {
         // api: ''          //when user modifies params of specific card, redux action updates their specific card params, but not this generic info here
       },
       supportedGraphs: ['scatter', 'bar'],
-      graphIndex: 0
+      graphIndex: 0,
+      renderer: ''
     },
     1: {
+      id: 1,
       name: 'Metric 2',
       supportedGraphs: ['bar', 'scatter'],
       graphIndex: 0
     },
     2: {
+      id: 2,
       name: 'Metric 3'
     },
     3: {
+      id: 3,
       name: 'Metric 4'
     },
     4: {
+      id: 4,
       name: 'Metric 5'
     },
   },
@@ -53,61 +64,211 @@ const initialState = {
     },
   },
   mainIndex: '0', //need a better name, this is for the nav on the main screen (but the service screen nav i'm calling 'metrics', hence 'metricIndex')
-  services: {
+  clusterInfo: {
     0: {
-      name: 'Service 1', 
-      status: 'ok'
+      id: 0,
+      name: 'Sandbox',
+      services: {
+        0: true,
+        1: true,
+      }
     },
     1: {
-      name: 'Service 2', 
-      status: 'ok'
+      id: 1,
+      name: 'Sandbox Lab',
+      services: {
+        2: true,
+        3: true,
+      }
     },
     2: {
-      name: 'Service 3', 
-      status: 'ok'
+      id: 2,
+      name: 'NonProd',
+      services: {
+        4: true,
+        5: true,
+      }
     },
     3: {
-      name: 'Service 4', 
-      status: 'ok'
-    },
-    4: {
-      name: 'Service 5', 
-      status: 'ok'
+      id: 3,
+      name: 'Prod',
+      services: {
+        6: true,
+        7: true,
+      }
     },
   },
-  serviceIndices: ['0'],
+  teamInfo: {
+    0: {
+      id: 0,
+      name: 'Lionel',
+      services: {
+        0: true,
+        1: true,
+      }
+    },
+    1: {
+      id: 1,
+      name: 'Watchtower',
+      services: {
+        1: true,
+        2: true,
+      }
+    },
+    2: {
+      id: 2,
+      name: 'Reliability',
+      services: {
+        3: true,
+        4: true,
+      }
+    },
+    3: {
+      id: 3,
+      name: 'DevEx',
+      services: {
+        5: true,
+        6: true,
+      }
+    },
+    4: {
+      id: 4,
+      name: 'Fuego',
+      services: {
+        1: true,
+        7: true,
+      }
+    },
+    5: {
+      id: 5,
+      name: 'Hielo',
+      services: {
+        2: true,
+        0: true,
+      }
+    },
+    6: {
+      id: 6,
+      name: 'Festivus',
+      services: {
+        0: true,
+      }
+    },
+    7: {
+      id: 7,
+      name: 'Etc.',
+      services: {
+        3: true,
+      }
+    },
+  },
+  roles: {
+    0: {
+      id: 0,
+      name: 'Manager'
+    },
+    1: {
+      id: 1,
+      name: 'Dev'
+    },
+  },
+  serviceInfo: { //svc has metadata about which cluster(s) and team(s) it's a part of  <-- are diff versions in diff clusters? Maybe we call diff version a diff svc altogether in this model?
+    0: {
+      id: 0,
+      name: 'Service 1',
+      status: 'ok',
+      // clusters: [0], // <-- id, not index
+      // teams: [0], // <-- id, not index
+    },
+    1: {
+      id: 1,
+      name: 'Service 2',
+      status: 'ok',
+      // clusters: [0], // <-- id, not index
+      // teams: [1], // <-- id, not index
+    },
+    2: {
+      id: 2,
+      name: 'Service 3',
+      status: 'ok',
+      // clusters: [0], // <-- id, not index
+      // teams: [0], // <-- id, not index
+    },
+    3: {
+      id: 3,
+      name: 'Service 4',
+      status: 'ok',
+      // clusters: [1], // <-- id, not index
+      // teams: [0], // <-- id, not index
+    },
+    4: {
+      id: 4,
+      name: 'Service 5',
+      status: 'ok',
+      // clusters: [1], // <-- id, not index
+      // teams: [1], // <-- id, not index
+    },
+    5: {
+      id: 5,
+      name: 'Service 6',
+      status: 'ok',
+      // clusters: [1], // <-- id, not index
+      // teams: [1], // <-- id, not index
+    },
+    6: {
+      id: 6,
+      name: 'Service 7',
+      status: 'ok',
+      // clusters: [1], // <-- id, not index
+      // teams: [1], // <-- id, not index
+    },
+    7: {
+      id: 7,
+      name: 'Service 8',
+      status: 'ok',
+      // clusters: [1], // <-- id, not index
+      // teams: [1], // <-- id, not index
+    },
+  },
+  // serviceIndices: ['0'],
   dataScreens: {
     0: {
       name: 'DataScreen 1',
       cards: {
         0: {
+          editCardMode: false,
           metrics: {
-            0: true
-          },
-          services: {
-            0: true
+            0: { //metricID
+              services: {
+                0: true //serviceID
+              },
+            }
           },
           order: 1,
           size: 1,   // maybe call position and do [1,1]
           graphIndex: 0
         },
         1: {
+          editCardMode: false,
           metrics: {
-            1: true
-          },
-          services: {
-            0: true
+            1: {
+              services: {
+                3: true
+              },
+            }
           },
           order: 2,
           size: 1,
           graphIndex: 0  
         },
         2: {
+          editCardMode: false,
           metrics: {
-            2: true
-          },
-          services: {
-            0: true
+            2: {
+              services: {
+                0: true
+              },
+            }
           },
           order: 3,
           size: 2,
@@ -119,22 +280,26 @@ const initialState = {
       name: 'DataScreen 2',
       cards: {
         0: {
+          editCardMode: false,
           metrics: {
-            3: true
-          },
-          services: {
-            0: true
+            3: {
+              services: {
+                0: true
+              },
+            }
           },
           order: 1,
           size: 1,
           graphIndex: 0
         },
         1: {
+          editCardMode: false,
           metrics: {
-            4: true
-          },
-          services: {
-            0: true
+            4: {
+              services: {
+                0: true
+              },
+            }
           },
           order: 2,
           size: 1,
@@ -146,11 +311,13 @@ const initialState = {
       name: 'DataScreen 3',
       cards: {
         0: {
+          editCardMode: false,
           metrics: {
-            0: true
-          },
-          services: {
-            0: true
+            0: {
+              services: {
+                0: true
+              },
+            }
           },
           order: 1,
           size: 1,
@@ -159,7 +326,6 @@ const initialState = {
       }
     }
   },
-  dataScreenIndex: '0',
   data: [
     {
       timebenchmark: 0.3, //seconds
@@ -182,21 +348,8 @@ const initialState = {
       avgReqsServedPct: 0.99
     }
   ],
-  // data: [
-  //   {
-  //     timeframe: '50ms',
-  //     p50: 0.95,
-  //     p90: 0.04,
-  //     p95: 0.01
-  //   },
-  //   {
-  //     timeframe: '50ms',
-  //     p50: 0.95,
-  //     p90: 0.04,
-  //     p95: 0.01
-  //   }
-  // ]
 };
+
 
 const reducer = (state=initialState, action) => {
   switch(action.type) {
@@ -205,29 +358,73 @@ const reducer = (state=initialState, action) => {
         whichScreen: state.whichScreen === 'main' ? 'service' : 'main'
       });
     case types.SWITCH_DATASCREEN: 
-      let newDataScreenIndex = action.newDataScreenIndex;
+      const newDataScreenIndex = action.newDataScreenIndex;
       return Object.assign({}, state, {
-        dataScreenIndex: newDataScreenIndex
+        dataScreenIndex: newDataScreenIndex,
+        selectedCardIndex: 0
       });
     case types.SWITCH_MAINTAB:
-      let newMainIndex = action.newMainIndex;
+      const newMainIndex = action.newMainIndex;
       return Object.assign({}, state, {
         mainIndex: newMainIndex
       });
-    // case types.SWITCH_SERVICE:
-    //   let newServiceIndex = action.newServiceIndex;
-    //   return Object.assign({}, state, {
-    //     serviceIndex: newServiceIndex
-    //   });
+    case types.MODIFY_DATA:
+      const newData = action.newData;
+      return Object.assign({}, state, {
+        data: newData
+      });
+    case types.TOGGLE_EDIT_CARD_MODE:
+      const dsindx = action.dataScreenIndex;
+      const cardidx = action.cardIndex;
+      // return Object.assign({}, state, {
+      //   editCardMode: !state.editCardMode,
+      //   selectedCardIndex: cardidx
+      // });
+      return Object.assign({}, state, {
+        ...state,
+        editCardMode: !state.editCardMode,
+        selectedCardIndex: cardidx,
+        dataScreens: {
+          ...state.dataScreens,
+          [dsindx]: {
+            ...state.dataScreens[dsindx],
+            cards: {
+              ...state.dataScreens[dsindx].cards,
+              [cardidx]: {
+                ...state.dataScreens[dsindx].cards[cardidx],
+                editCardMode: !state.dataScreens[dsindx].cards[cardidx].editCardMode
+              }
+            }
+          }
+        }
+      });
+    case types.TOGGLE_EDIT_METRIC_MODE:
+      // const dsidx = action.dataScreenIndex;
+      // const cardIdx = action.cardIndex;
+      const metricIndex = action.metricIndex;
+      return Object.assign({}, state, {
+        ...state,
+        editMetricMode: !state.editMetricMode,
+        whichMetric: state.editMetricMode ? '' : metricIndex
+      });
     case types.TOGGLE_SERVICE:
-      let serviceIndex = action.serviceIndex;
-      let alreadyChosen = action.alreadyChosen;
-      let DSIndex = action.dataScreenIndex;
-      let cardIndx = action.selectedCardIndex;
-      let services = state.dataScreens[DSIndex].cards[cardIndx].services;
+      const serviceID = action.serviceID;
+      const alreadyChosen = action.alreadyChosen;
+      const DSIndex = action.dataScreenIndex;
+      const cardIndx = action.selectedCardIndex;
+      const whichMetric = action.whichMetric;
+      //need to get metric index too
       
-      if (alreadyChosen) delete services[serviceIndex];
-      if (!alreadyChosen) services[serviceIndex] = true;   
+      // let dataScreenServices = {};
+      // const dataScreenMetricsArray = Object.values(state.dataScreens[DSIndex].cards[cardIndx].metrics[whichMetric]);
+      // dataScreenMetricsArray.forEach((metric) => {
+      //   dataScreenServices = Object.assign(dataScreenServices, metric.services)
+      // });
+      const services = Object.values(state.dataScreens[DSIndex].cards[cardIndx].metrics[whichMetric].services);
+
+      
+      if (alreadyChosen) delete services[serviceID];
+      if (!alreadyChosen) services[serviceID] = true;   
 
       return Object.assign({}, state, {
         ...state,
@@ -239,21 +436,30 @@ const reducer = (state=initialState, action) => {
               ...state.dataScreens[DSIndex].cards,
               [cardIndx]: {
                 ...state.dataScreens[DSIndex].cards[cardIndx],
-                services 
+                metrics:  {
+                  ...state.dataScreens[DSIndex].cards[cardIndx].metrics,
+                  [whichMetric]: {
+                    ...state.dataScreens[DSIndex].cards[cardIndx].metrics[whichMetric],
+                    services
+                  }
+                }
+                // dataScreenServices 
               }
             }
           }
         }
       })
     case types.TOGGLE_METRIC:
-      let metricIndex = action.metricIndex;
-      let alrdyChosen = action.alreadyChosen;
-      let DScIndex = action.dataScreenIndex;
-      let crdIndex = action.selectedCardIndex;
-      let metrics = state.dataScreens[DScIndex].cards[crdIndex].metrics;
+      const metricID = action.metricID;
+      const alrdyChosen = action.alreadyChosen;
+      const DScIndex = action.dataScreenIndex;
+      const crdIndex = action.selectedCardIndex;
+      const metrics = state.dataScreens[DScIndex].cards[crdIndex].metrics;
       
-      if (alrdyChosen) delete metrics[metricIndex];
-      if (!alrdyChosen) metrics[metricIndex] = true;   
+      if (alrdyChosen) delete metrics[metricID];
+      if (!alrdyChosen) metrics[metricID] = {
+        services: {}
+      };   
 
       return Object.assign({}, state, {
         ...state,
@@ -271,27 +477,10 @@ const reducer = (state=initialState, action) => {
           }
         }
       })
-    case types.MODIFY_DATA:
-      let newData = action.newData;
-      return Object.assign({}, state, {
-        data: newData
-      });
-    case types.MODIFY_SERVICES_MODE:
-      let cardIndex=action.cardIndex;
-      return Object.assign({}, state, {
-        modifyServicesMode: !state.modifyServicesMode,
-        selectedCardIndex: cardIndex
-      });
-    case types.MODIFY_METRICS_MODE:
-      let cardInd=action.cardIndex;
-      return Object.assign({}, state, {
-        modifyMetricsMode: !state.modifyMetricsMode,
-        selectedCardIndex: cardInd
-      });
     case types.TOGGLE_GRAPH: 
-      let newGraphIndex = action.newGraphIndex;
-      let dataScreenIndex = action.dataScreenIndex;
-      let cardIdx = action.cardIndex;
+      const newGraphIndex = action.newGraphIndex;
+      const dataScreenIndex = action.dataScreenIndex;
+      const cardIdx = action.cardIndex;
       return Object.assign({}, state, {
         ...state,
         dataScreens: {
@@ -315,11 +504,120 @@ const reducer = (state=initialState, action) => {
 
 export default reducer;
 
-// cards: {
-//   0: {
-//     metrics: ['0'],
-//     services: ['0'],
-//     order: 1,
-//     size: 1,   // maybe call position and do [1,1]
-//     graphIndex: 0
-//   },
+
+
+
+  // serviceInfo: { //services are organized by which team in which cluster 
+  //   cluster: {
+  //     0: {
+  //       name: 'Sandbox',
+  //       team: {
+  //         0: {
+  //           name: 'DevEx',
+  //           services: {
+  //             0: {
+  //               id: 0,
+  //               name: 'Service 1', 
+  //               status: 'ok'
+  //             },
+  //             1: {
+  //               id: 1,
+  //               name: 'Service 2', 
+  //               status: 'ok'
+  //             },
+  //             2: {
+  //               id: 2,
+  //               name: 'Service 3', 
+  //               status: 'ok'
+  //             },
+  //             3: {
+  //               id: 3,
+  //               name: 'Service 4', 
+  //               status: 'ok'
+  //             },
+  //             4: {
+  //               id: 4,
+  //               name: 'Service 5', 
+  //               status: 'ok'
+  //             },
+  //           }
+  //         },
+  //         1: {
+  //           name: 'Reliability',
+  //           services: {
+  //             0: {
+  //               id: 5,
+  //               name: 'Service 6', 
+  //               status: 'ok'
+  //             },
+  //             1: {
+  //               id: 6,
+  //               name: 'Service 7', 
+  //               status: 'ok'
+  //             },
+  //             2: {
+  //               id: 7,
+  //               name: 'Service 8', 
+  //               status: 'ok'
+  //             },
+  //           }
+  //         }
+  //       }
+  //     },
+  //     1: {
+  //       name: 'NonProd',
+  //       team: {
+  //         0: {
+  //           name: 'DevEx',
+  //           services: {
+  //             0: {
+  //               id: 8,
+  //               name: 'Service 1', 
+  //               status: 'ok'
+  //             },
+  //             1: {
+  //               id: 9,
+  //               name: 'Service 2', 
+  //               status: 'ok'
+  //             },
+  //             2: {
+  //               id: 10,
+  //               name: 'Service 3', 
+  //               status: 'ok'
+  //             },
+  //             3: {
+  //               id: 11,
+  //               name: 'Service 4', 
+  //               status: 'ok'
+  //             },
+  //             4: {
+  //               id: 12,
+  //               name: 'Service 5', 
+  //               status: 'ok'
+  //             },
+  //           }
+  //         },
+  //         1: {
+  //           name: 'Reliability',
+  //           services: {
+  //             0: {
+  //               id: 13,
+  //               name: 'Service 6', 
+  //               status: 'ok'
+  //             },
+  //             1: {
+  //               id: 14,
+  //               name: 'Service 7', 
+  //               status: 'ok'
+  //             },
+  //             2: {
+  //               id: 15,
+  //               name: 'Service 8', 
+  //               status: 'ok'
+  //             },
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // },

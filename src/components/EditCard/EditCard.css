@@ -1,0 +1,12 @@
+.edit-card {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: rgb(243, 246, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}

@@ -6,7 +6,7 @@ import ChooseMetrics from '../components/ChooseMetrics/ChooseMetrics';
 
 class Dashboard extends Component {
   componentDidUpdate() {
-    // console.log('modifymetricsmode')
+    // console.log('')
   }
 
   render() {
@@ -14,7 +14,7 @@ class Dashboard extends Component {
       <div id='dashboard'>
         <Header {...this.props}/>
         <ScreenBelowHeader {...this.props}/>
-        {this.props.modifyMetricsMode ? <ChooseMetrics {...this.props} /> : ''}
+        {this.props.editCardMode ? <ChooseMetrics {...this.props} /> : ''}
       </div>
     )
   }
