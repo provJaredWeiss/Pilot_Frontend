@@ -4,12 +4,13 @@ const initialState = {
   whichScreen: 'service', //switch to 'main' when app is launched
   selectedCardIndex: 0,
   editCardMode: false,
-  whichTeams: [0, 1, 2, 3, 4, 5, 6, 7], //<-- teamID
+  whichTeams: [0, 1, 2, 3, 4, 5, 6, 7], //<-- teamID ('all teams')
   whichClusters: [0, 1], //represents 'all clusters' (i've only put in 2 so far)
   whichRole: 0, //<-- roleID (to be added eventually)
   dataScreenIndex: '0',
   whichMetric: '',
   editMetricMode: false,
+  mainIndex: '0', //need a better name, this is for the nav on the main screen 
   metricInfo: {
     0: {
       id: 0,
@@ -18,9 +19,9 @@ const initialState = {
       sampleImg: '',       // ^ for option 2, using the name of the Metric and service, we will look up necessary data...
       query: {
         startTime: 0,
-        endTime: 60,     //can any metric to any dashboard, these params here are generic
-        timeStep: 10
-        // api: ''          //when user modifies params of specific card, redux action updates their specific card params, but not this generic info here
+        endTime: 6000,     //these params here are generic (default), not to be tampered with
+        timeStep: 1000
+        // api: ''
       },
       supportedGraphs: ['scatter', 'bar'],
       graphIndex: 0,
@@ -45,7 +46,6 @@ const initialState = {
       name: 'Metric 5'
     },
   },
-  // metricIndex: 0,
   mainTabs: {
     0: {
       name: 'General Info'
@@ -63,7 +63,6 @@ const initialState = {
       name: 'Other'
     },
   },
-  mainIndex: '0', //need a better name, this is for the nav on the main screen (but the service screen nav i'm calling 'metrics', hence 'metricIndex')
   clusterInfo: {
     0: {
       id: 0,
@@ -248,32 +247,32 @@ const initialState = {
           size: 1,   // maybe call position and do [1,1]
           graphIndex: 0
         },
-        1: {
-          editCardMode: false,
-          metrics: {
-            1: {
-              services: {
-                3: true
-              },
-            }
-          },
-          order: 2,
-          size: 1,
-          graphIndex: 0  
-        },
-        2: {
-          editCardMode: false,
-          metrics: {
-            2: {
-              services: {
-                0: true
-              },
-            }
-          },
-          order: 3,
-          size: 2,
-          graphIndex: 0
-        }
+        // 1: {
+        //   editCardMode: false,
+        //   metrics: {
+        //     1: {
+        //       services: {
+        //         3: true
+        //       },
+        //     }
+        //   },
+        //   order: 2,
+        //   size: 1,
+        //   graphIndex: 0  
+        // },
+        // 2: {
+        //   editCardMode: false,
+        //   metrics: {
+        //     2: {
+        //       services: {
+        //         0: true
+        //       },
+        //     }
+        //   },
+        //   order: 3,
+        //   size: 2,
+        //   graphIndex: 0
+        // }
       }
     },
     1: {
@@ -348,6 +347,104 @@ const initialState = {
       avgReqsServedPct: 0.99
     }
   ],
+  dataTwo: { 
+    "metrics": { 
+      "0": { //this key is the metricID
+        "id": 0,
+        "name": "Metric 1",
+        "specs": {
+          "type": "timeSeries",
+          "startTime": 0,
+          "endTime": 6000,
+          "timeStep": 1000
+        },
+        "services": {
+          "0": { //this key is the serviceID
+            "id": 0,
+            "name": "Service 1",
+            "cluster": 0,
+            "team": 0,
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 10
+              }, 
+              "1": {
+                "startTime": 1000,
+                "endTime": 2000,
+                "data": 20
+              }, 
+              "2": {
+                "startTime": 2000,
+                "endTime": 3000,
+                "data": 30
+              }, 
+              "3": {
+                "startTime": 3000,
+                "endTime": 4000,
+                "data": 50
+              }, 
+              "4": {
+                "startTime": 4000,
+                "endTime": 5000,
+                "data": 40
+              }, 
+              "5": {
+                "startTime": 5000,
+                "endTime": 6000,
+                "data": 10
+              }
+            }
+          },
+          "1": {
+            "id": 1,
+            "name": "Service 2",
+            "cluster": 0,
+            "team": 1,
+            "specs": {
+              "type": "timeSeries",
+              "startTime": 0,
+              "endTime": 6000,
+              "timeStep": 1000
+            },
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "1": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "2": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "3": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "4": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "5": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 };
 
 

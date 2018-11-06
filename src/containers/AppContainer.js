@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
   teamInfo: state.teamInfo,
   clusterInfo: state.clusterInfo,
   editMetricMode: state.editMetricMode,
-  whichMetric: state.whichMetric
+  whichMetric: state.whichMetric,
+  dataTwo: state.dataTwo
   // modifiers: state.modifiers
 });
 
