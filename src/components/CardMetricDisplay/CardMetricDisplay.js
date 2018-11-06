@@ -19,11 +19,12 @@ class CardMetricDisplay extends Component {
       // data: [],
       // xVals: [],
       // yVals: [],
-      data: {}
+      data: {},
     }
   }
 
   parseVals(bucketsObj, tStart, tEnd, tStep) {
+    console.log(bucketsObj)
     let returnObj = {
       xVals: [],
       yVals: []
@@ -81,7 +82,7 @@ class CardMetricDisplay extends Component {
   componentDidMount() {
     //const startTime = this.props.startTime
     //const endTime = this.props.endTime
-    //const timeStep = this.props.timeStep=
+    //const timeStep = this.props.timeStep
     const startTime = 0;
     const endTime = 6000;
     const timeStep = 1000;
@@ -95,10 +96,43 @@ class CardMetricDisplay extends Component {
     const dataTwo = this.props.dataTwo;
 
     const dataForState = this.updateDataForState(dataTwo, whichMetrics, startTime, endTime, timeStep);
-    this.setState({data: dataForState})
+    this.setState({data: dataForState, cardMetrics: cardMetrics})
   }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  componentDidUpdate(prevProps){
+    if (this.props.card.metrics !== prevProps.card.metrics) {
+      // console.log('hi')
+      // console.log('prevprops')
+      // console.log(prevProps.card.metrics)
+      // console.log('this.props')
+      // console.log(this.props.card.metrics)
+      //const startTime = this.props.startTime
+      //const endTime = this.props.endTime
+      //const timeStep = this.props.timeStep
+      const startTime = 0;
+      const endTime = 6000;
+      const timeStep = 1000;
+      
+      const cardMetrics = this.props.card.metrics;
+      const cardMetricIds = Object.keys(cardMetrics);
+      const whichMetrics = cardMetricIds.map((cardMetricID) => 
+        Object.assign(cardMetrics[cardMetricID], this.props.metricInfo[cardMetricID])
+      )
+
+      const dataTwo = this.props.dataTwo;
+      // console.log('whichMetrics')
+      // console.log(whichMetrics)
+      const dataForState = this.updateDataForState(dataTwo, whichMetrics, startTime, endTime, timeStep);
+      
+      this.setState({
+        data: dataForState, 
+      })
+    }
+    else return null;
+  }
 
 
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -127,6 +161,7 @@ class CardMetricDisplay extends Component {
     // console.log(this.state.data)
     // const dataForGraph = [{}, {}]
     const dataForGraph = Object.values(this.state.data);
+    // console.log(dataForGraph)
     // console.log(dataForGraph)
     //also need type: 'scatter', mode: 'lines+points', marker: {color: 'red'}
     return (

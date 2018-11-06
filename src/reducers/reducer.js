@@ -417,28 +417,28 @@ const initialState = {
                 "data": 20
               }, 
               "1": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 1000,
+                "endTime": 2000,
                 "data": 20
               }, 
               "2": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 2000,
+                "endTime": 3000,
                 "data": 20
               }, 
               "3": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 3000,
+                "endTime": 4000,
                 "data": 20
               }, 
               "4": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 4000,
+                "endTime": 5000,
                 "data": 20
               }, 
               "5": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 5000,
+                "endTime": 6000,
                 "data": 20
               }
             }

@@ -12,8 +12,8 @@ class EditCardButton extends Component {
             ? 
               !this.props.editMetricMode //and we aren't currently editing the services for a metric
               ? () => this.props.toggleEditCardMode(this.props.dataScreenIndex, this.props.cardIndex) //can click 'edit card' / 'done editing card' button
-              : ''
-            : ''
+              : null
+            : null
           : () => this.props.toggleEditCardMode(this.props.dataScreenIndex, this.props.cardIndex)}
         >{this.props.editCardMode && this.props.cardIndex === this.props.selectedCardIndex ? 'Done Editing Card' : 'Edit Card'}</button>
       </div>

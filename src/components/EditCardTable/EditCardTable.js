@@ -23,7 +23,7 @@ class EditCardTable extends Component {
         })
       }
     })
-    console.log(tableData)
+    // console.log(tableData)
     return (
       <div className='edit-card-Table'>
         <GenerateTable tableData={tableData} {...this.props}/>

@@ -21,8 +21,8 @@ class GenerateTable extends Component {
       }
       serviceRows.push(serviceRow);
     }
-    console.log(metricHeaders)
-    console.log(serviceRows)
+    // console.log(metricHeaders)
+    // console.log(serviceRows)
 
     return (
       <div className='generate-table'>
