@@ -6,22 +6,23 @@ import TableRow from '../TableRow/TableRow';
 
 class GenerateTable extends Component { 
   render() {
-    let maxLength = 0;
+    let maxLength = 0; //denotes the maximum number of services a metric is associated with (ie, the # of rows below the header in our 'edit card' table)
     const metricHeaders = Object.keys(this.props.tableData);
     metricHeaders.forEach((metricHeader) => {
       maxLength = Math.max(maxLength, this.props.tableData[metricHeader].length);
     })
     const amtOfMetricHeaders = metricHeaders.length;
-    const rows = [];
+    // console.log(amtOfMetricHeaders)
+    const serviceRows = [];
     for (let i = 0; i < maxLength; i++) {
-      let row = [];
+      let serviceRow = [];
       for (let j = 0; j < amtOfMetricHeaders; j++) {
-        row.push(this.props.tableData[metricHeaders[j]] ? this.props.tableData[metricHeaders[j]] : '')
+        serviceRow.push(this.props.tableData[metricHeaders[j]] ? this.props.tableData[metricHeaders[j]][i] : '')
       }
-      rows.push(row);
+      serviceRows.push(serviceRow);
     }
-    // console.log(metricHeaders)
-    // console.log(rows)
+    console.log(metricHeaders)
+    console.log(serviceRows)
 
     return (
       <div className='generate-table'>
@@ -30,7 +31,7 @@ class GenerateTable extends Component {
             <TableHeader headerData={metricHeaders} {...this.props}/>
           </thead>
           <tbody>
-            {rows.map((row, i) => 
+            {serviceRows.map((row, i) => 
               <TableRow key={i} rowData={row} {...this.props}/>
             )}
           </tbody>

@@ -8,7 +8,7 @@ class TableRow extends Component {
       <tr>
         {this.props.rowData.map((cell, i) => 
           <td key={i}>
-            <Cell cellData={this.props.serviceInfo[cell]} {...this.props} />
+            <Cell cellData={cell ? this.props.serviceInfo[cell] : null} {...this.props} />
           </td>)}
       </tr>
     )

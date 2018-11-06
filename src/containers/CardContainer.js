@@ -6,7 +6,7 @@ import { toggleGraph, toggleEditCardMode, toggleEditMetricMode } from '../action
 
 const mapStateToProps = state => ({
   editMetricMode: state.editMetricMode,
-  whichMetric: '',
+  whichMetric: state.whichMetric
 });
 
 const mapDispatchToProps = dispatch => ({

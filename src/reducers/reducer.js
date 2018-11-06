@@ -420,9 +420,8 @@ const reducer = (state=initialState, action) => {
       // dataScreenMetricsArray.forEach((metric) => {
       //   dataScreenServices = Object.assign(dataScreenServices, metric.services)
       // });
-      const services = Object.values(state.dataScreens[DSIndex].cards[cardIndx].metrics[whichMetric].services);
+      const services = state.dataScreens[DSIndex].cards[cardIndx].metrics[whichMetric].services;
 
-      
       if (alreadyChosen) delete services[serviceID];
       if (!alreadyChosen) services[serviceID] = true;   
 

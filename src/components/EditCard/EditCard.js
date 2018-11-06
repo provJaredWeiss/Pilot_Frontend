@@ -7,7 +7,7 @@ class EditCard extends Component {
     return (
       <div className='edit-card'>
         <EditCardTable {...this.props}/>
-        <button onClick={() => this.props.toggleEditCardMode(this.props.dataScreenIndex, this.props.cardIndex)}>X</button>
+        {/* <button onClick={() => this.props.toggleEditCardMode(this.props.dataScreenIndex, this.props.cardIndex)}>X</button> */}
       </div>
     )
   }

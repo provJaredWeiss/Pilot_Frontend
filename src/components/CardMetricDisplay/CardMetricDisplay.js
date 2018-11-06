@@ -76,7 +76,7 @@ class CardMetricDisplay extends Component {
           // layout={ {title: 'A Fancy Plot'} }
           // responsive={true}
           //^ this doesn't work, probably need to grab div for card then get the size of it, then have width & height be equations
-          layout={ {width: 700, height: 500, title: 'A Fancy Plot'} }
+          layout={ {width: 500, height: 300, title: 'A Fancy Plot'} }
         />  
         : ''}   
       </div>

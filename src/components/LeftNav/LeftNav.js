@@ -58,7 +58,7 @@ class LeftNav extends Component {
                 <SelectedServiceDiv 
                   {...this.props}
                   serviceID={service.id}
-                  alreadyChosen={this.props.whichMetric ? this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.selectedCardIndex].metrics[this.props.whichMetric] : ''}
+                  alreadyChosen={this.props.whichMetric || this.props.whichMetric === 0 ? this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.selectedCardIndex].metrics[this.props.whichMetric].services[service.id] : ''}
                   // alreadyChosen={this.state.dataScreenServices[service.id] ? true : false}
                   // alreadyChosen={this.props.dataScreens[this.props.dataScreenIndex].cards[this.props.selectedCardIndex].services[i.toString()] ? true : false}
                 />

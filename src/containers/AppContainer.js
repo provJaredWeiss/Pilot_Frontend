@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
   switchMainTab: (newMainIndex) => dispatch(switchMainTab(newMainIndex)),
   // switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
   modifyData: (data) => dispatch(modifyData(data)),
-  toggleService: (serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => dispatch(toggleService(serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex)),
+  toggleService: (serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex, whichMetric) => dispatch(toggleService(serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex, whichMetric)),
   toggleMetric: (metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => dispatch(toggleMetric(metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex)),
 });
 
