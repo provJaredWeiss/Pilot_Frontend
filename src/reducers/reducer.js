@@ -24,7 +24,7 @@ const initialState = {
         // api: ''
       },
       supportedGraphs: ['scatter', 'bar'],
-      graphIndex: 0,
+      graphIndex: 0, //metricInfo shouldn't be tampered with, but I'm considering allowing this prop to be changed, otherwise could be complicated to rep the change in graph type elsewhere
       renderer: ''
     },
     1: {
@@ -35,7 +35,9 @@ const initialState = {
     },
     2: {
       id: 2,
-      name: 'Metric 3'
+      name: 'Metric 3',
+      supportedGraphs: ['bar', 'scatter'],
+      graphIndex: 0
     },
     3: {
       id: 3,
@@ -247,32 +249,32 @@ const initialState = {
           size: 1,   // maybe call position and do [1,1]
           graphIndex: 0
         },
-        // 1: {
-        //   editCardMode: false,
-        //   metrics: {
-        //     1: {
-        //       services: {
-        //         3: true
-        //       },
-        //     }
-        //   },
-        //   order: 2,
-        //   size: 1,
-        //   graphIndex: 0  
-        // },
-        // 2: {
-        //   editCardMode: false,
-        //   metrics: {
-        //     2: {
-        //       services: {
-        //         0: true
-        //       },
-        //     }
-        //   },
-        //   order: 3,
-        //   size: 2,
-        //   graphIndex: 0
-        // }
+        1: {
+          editCardMode: false,
+          metrics: {
+            1: {
+              services: {
+                3: true
+              },
+            }
+          },
+          order: 2,
+          size: 1,
+          graphIndex: 0  
+        },
+        2: {
+          editCardMode: false,
+          metrics: {
+            2: {
+              services: {
+                0: true
+              },
+            }
+          },
+          order: 3,
+          size: 2,
+          graphIndex: 0
+        }
       }
     },
     1: {
@@ -441,6 +443,194 @@ const initialState = {
               }
             }
           }
+        }
+      },
+      "1": { //this key is the metricID
+        "id": 1,
+        "name": "Metric 2",
+        "specs": {
+          "type": "timeSeries",
+          "startTime": 0,
+          "endTime": 6000,
+          "timeStep": 1000
+        },
+        "services": {
+          "1": { //this key is the serviceID
+            "id": 1,
+            "name": "Service 2",
+            "cluster": 0,
+            "team": 0,
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 10
+              }, 
+              "1": {
+                "startTime": 1000,
+                "endTime": 2000,
+                "data": 20
+              }, 
+              "2": {
+                "startTime": 2000,
+                "endTime": 3000,
+                "data": 30
+              }, 
+              "3": {
+                "startTime": 3000,
+                "endTime": 4000,
+                "data": 50
+              }, 
+              "4": {
+                "startTime": 4000,
+                "endTime": 5000,
+                "data": 40
+              }, 
+              "5": {
+                "startTime": 5000,
+                "endTime": 6000,
+                "data": 10
+              }
+            }
+          },
+          "2": {
+            "id": 2,
+            "name": "Service 3",
+            "cluster": 0,
+            "team": 1,
+            "specs": {
+              "type": "timeSeries",
+              "startTime": 0,
+              "endTime": 6000,
+              "timeStep": 1000
+            },
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "1": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "2": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "3": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "4": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "5": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }
+            }
+          },
+          "3": {
+            "id": 3,
+            "name": "Service 4",
+            "cluster": 0,
+            "team": 1,
+            "specs": {
+              "type": "timeSeries",
+              "startTime": 0,
+              "endTime": 6000,
+              "timeStep": 1000
+            },
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "1": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "2": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "3": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "4": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }, 
+              "5": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 20
+              }
+            }
+          }
+        }
+      },
+      "2": { //this key is the metricID
+        "id": 2,
+        "name": "Metric 3",
+        "specs": {
+          "type": "timeSeries",
+          "startTime": 0,
+          "endTime": 6000,
+          "timeStep": 1000
+        },
+        "services": {
+          "0": { //this key is the serviceID
+            "id": 0,
+            "name": "Service 1",
+            "cluster": 0,
+            "team": 0,
+            "buckets": {
+              "0": {
+                "startTime": 0,
+                "endTime": 1000,
+                "data": 10
+              }, 
+              "1": {
+                "startTime": 1000,
+                "endTime": 2000,
+                "data": 60
+              }, 
+              "2": {
+                "startTime": 2000,
+                "endTime": 3000,
+                "data": 30
+              }, 
+              "3": {
+                "startTime": 3000,
+                "endTime": 4000,
+                "data": 100
+              }, 
+              "4": {
+                "startTime": 4000,
+                "endTime": 5000,
+                "data": 40
+              }, 
+              "5": {
+                "startTime": 5000,
+                "endTime": 6000,
+                "data": 50
+              }
+            }
+          },
         }
       }
     }
