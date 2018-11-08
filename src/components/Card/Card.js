@@ -21,12 +21,33 @@ class Card extends Component {
   //I think i need another component called <smallerCard> for when user can choose new ones in profile
   //^ don't think so anymore, cards will resize, if we want to display sample img instead of actual data, can have a condition somewhere
 
+  constructor() {
+    super()
+    this.state = {
+      text: {
+        // timeStart: '0',
+        // timeEnd: '6000',
+        // timeStep: '1000',
+        timeStart: '0',
+        timeEnd: '6000',
+        timeStep: '1000',
+      }
+    }
+    this.editTimeFrame = this.editTimeFrame.bind(this);
+  }
+
+  editTimeFrame(text) {
+    let currentText = this.state.text;
+    let newText = Object.assign({}, currentText, text)
+    this.setState({text: newText})
+  }
+
   render() {
     return (
       <div className='card'>
         <CardHeader {...this.props}/>
-        <CardMain {...this.props}/>
-        <CardFooter {...this.props}/>
+        <CardMain text={this.state.text} {...this.props}/>
+        <CardFooter editTimeFrame={this.editTimeFrame} {...this.props}/>
       </div>
     )
   }
