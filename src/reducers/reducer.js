@@ -365,9 +365,9 @@ const initialState = {
         "name": "Metric 1",
         "specs": {
           "type": "timeSeries",
-          "startTime": 0,
-          "endTime": 6000,
-          "timeStep": 1000
+          // "startTime": 0,
+          // "endTime": 6000,
+          // "timeStep": 1000
         },
         "services": {
           "0": { //this key is the serviceID
@@ -377,40 +377,40 @@ const initialState = {
             "team": 0,
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
                 "data": 10
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
                 "data": 20
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
                 "data": 30
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 50
-              }, 
-              "4": {
-                "startTime": 4000,
-                "endTime": 5000,
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
                 "data": 40
               }, 
+              "4": {
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 50
+              }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 10
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 60
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 70
+              },
             }
           },
           "1": {
@@ -418,48 +418,42 @@ const initialState = {
             "name": "Service 2",
             "cluster": 0,
             "team": 1,
-            "specs": {
-              "type": "timeSeries",
-              "startTime": 0,
-              "endTime": 6000,
-              "timeStep": 1000
-            },
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 20
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 70
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 10
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
                 "data": 20
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 20
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 30
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 20
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 40
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 20
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 50
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 60
+              },
             }
           }
         }
@@ -469,9 +463,9 @@ const initialState = {
         "name": "Metric 2",
         "specs": {
           "type": "timeSeries",
-          "startTime": 0,
-          "endTime": 6000,
-          "timeStep": 1000
+          // "startTime": 0,
+          // "endTime": 6000,
+          // "timeStep": 1000
         },
         "services": {
           "1": { //this key is the serviceID
@@ -481,40 +475,40 @@ const initialState = {
             "team": 0,
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 30
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 60
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 70
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
-                "data": 30
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 10
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 50
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 20
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 40
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 30
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 50
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 40
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 50
+              },
             }
           },
           "2": {
@@ -522,48 +516,42 @@ const initialState = {
             "name": "Service 3",
             "cluster": 0,
             "team": 1,
-            "specs": {
-              "type": "timeSeries",
-              "startTime": 0,
-              "endTime": 6000,
-              "timeStep": 1000
-            },
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 30
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 50
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 60
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
-                "data": 10
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 70
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 20
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 10
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
                 "data": 20
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 20
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 30
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 40
+              },
             }
           },
           "3": {
@@ -571,48 +559,42 @@ const initialState = {
             "name": "Service 4",
             "cluster": 0,
             "team": 1,
-            "specs": {
-              "type": "timeSeries",
-              "startTime": 0,
-              "endTime": 6000,
-              "timeStep": 1000
-            },
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 20
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 40
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 50
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
-                "data": 20
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 60
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 20
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 70
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 20
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 10
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
                 "data": 20
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 30
+              },
             }
           }
         }
@@ -622,9 +604,9 @@ const initialState = {
         "name": "Metric 3",
         "specs": {
           "type": "timeSeries",
-          "startTime": 0,
-          "endTime": 6000,
-          "timeStep": 1000
+          // "startTime": 0,
+          // "endTime": 6000,
+          // "timeStep": 1000
         },
         "services": {
           "0": { //this key is the serviceID
@@ -634,40 +616,40 @@ const initialState = {
             "team": 0,
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 10
-              }, 
-              "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 60
-              }, 
-              "2": {
-                "startTime": 2000,
-                "endTime": 3000,
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
                 "data": 30
               }, 
-              "3": {
-                "startTime": 3000,
-                "endTime": 4000,
-                "data": 100
-              }, 
-              "4": {
-                "startTime": 4000,
-                "endTime": 5000,
+              "1": {
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
                 "data": 40
               }, 
-              "5": {
-                "startTime": 5000,
-                "endTime": 6000,
+              "2": {
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
                 "data": 50
+              }, 
+              "3": {
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 60
+              }, 
+              "4": {
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 70
+              }, 
+              "5": {
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 10
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 20
+              },
             }
           },
         }
@@ -677,9 +659,9 @@ const initialState = {
         "name": "Metric 4",
         "specs": {
           "type": "timeSeries",
-          "startTime": 0,
-          "endTime": 6000,
-          "timeStep": 1000
+          // "startTime": 0,
+          // "endTime": 6000,
+          // "timeStep": 1000
         },
         "services": {
           "0": { //this key is the serviceID
@@ -689,40 +671,40 @@ const initialState = {
             "team": 0,
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 10
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 40
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
-              }, 
-              "2": {
-                "startTime": 2000,
-                "endTime": 3000,
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
                 "data": 30
               }, 
+              "2": {
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 20
+              }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
                 "data": 50
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 40
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 50
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 10
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 20
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 30
+              },
             }
           },
           "1": {
@@ -730,48 +712,42 @@ const initialState = {
             "name": "Service 2",
             "cluster": 0,
             "team": 1,
-            "specs": {
-              "type": "timeSeries",
-              "startTime": 0,
-              "endTime": 6000,
-              "timeStep": 1000
-            },
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 20
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 40
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 70
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
-                "data": 20
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 30
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
                 "data": 20
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 20
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 30
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 20
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 40
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
                 "data": 10
-              }
+              },
             }
           }
         }
@@ -781,9 +757,9 @@ const initialState = {
         "name": "Metric 5",
         "specs": {
           "type": "timeSeries",
-          "startTime": 0,
-          "endTime": 6000,
-          "timeStep": 1000
+          // "startTime": 0,
+          // "endTime": 6000,
+          // "timeStep": 1000
         },
         "services": {
           "0": { //this key is the serviceID
@@ -793,40 +769,40 @@ const initialState = {
             "team": 0,
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
                 "data": 10
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
-              }, 
-              "2": {
-                "startTime": 2000,
-                "endTime": 3000,
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
                 "data": 30
               }, 
-              "3": {
-                "startTime": 3000,
-                "endTime": 4000,
+              "2": {
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
                 "data": 50
               }, 
+              "3": {
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
+                "data": 70
+              }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 40
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 20
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 10
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 40
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 30
+              },
             }
           },
           "1": {
@@ -834,48 +810,42 @@ const initialState = {
             "name": "Service 2",
             "cluster": 0,
             "team": 1,
-            "specs": {
-              "type": "timeSeries",
-              "startTime": 0,
-              "endTime": 6000,
-              "timeStep": 1000
-            },
             "buckets": {
               "0": {
-                "startTime": 0,
-                "endTime": 1000,
-                "data": 20
+                "startTime": 1541098800000,                   //let's start at noon on Thurs, Nov 1, and end at noon on Thurs, Nov 8, increment by 1 day (noon every day)
+                "endTime": 1541185200000,
+                "data": 70
               }, 
               "1": {
-                "startTime": 1000,
-                "endTime": 2000,
-                "data": 20
+                "startTime": 1541185200000,
+                "endTime": 1541271600000,
+                "data": 50
               }, 
               "2": {
-                "startTime": 2000,
-                "endTime": 3000,
-                "data": 20
+                "startTime": 1541271600000,
+                "endTime": 1541361600000,
+                "data": 30
               }, 
               "3": {
-                "startTime": 3000,
-                "endTime": 4000,
+                "startTime": 1541361600000,
+                "endTime": 1541448000000,
                 "data": 20
               }, 
               "4": {
-                "startTime": 4000,
-                "endTime": 5000,
-                "data": 20
+                "startTime": 1541448000000,
+                "endTime": 1541534400000,
+                "data": 40
               }, 
               "5": {
-                "startTime": 5000,
-                "endTime": 6000,
-                "data": 20
+                "startTime": 1541534400000,
+                "endTime": 1541620800000,
+                "data": 50
               },
               "6": {
-                "startTime": 6000,
-                "endTime": 7000,
-                "data": 10
-              }
+                "startTime": 1541620800000,
+                "endTime": 1541707200000,
+                "data": 20
+              },
             }
           }
         }

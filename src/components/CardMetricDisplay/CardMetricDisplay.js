@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './CardMetricDisplay.css';
 import Plot from 'react-plotly.js';
-
+import moment from 'moment';
 
 //CardMetricDisplay will reach attributes data (in state/in mem data) and get its renderer (spec to the type of metric we want):
   //api to req for data
   //what type of graph to display
   //what timeframe
   //what component
-
+//^ wrote this a while ago, so might not be perfect
 
 class CardMetricDisplay extends Component {
 
@@ -16,22 +16,52 @@ class CardMetricDisplay extends Component {
     super();
     this.state = {
       data: {},
-      buttons: []
+      buttons: [] //this will be for Plotly layout -> buttons (so can toggle each dataset between graph types)
+    }
+  }
+  
+  getTimeInterval(timeStepText) {
+    switch(timeStepText) {
+      case 'second':
+        return 1000;
+      case 'minute':
+        return 60000;
+      case 'hour':
+        return 3600000;
+      case 'day': 
+        return 86400000;
+      case 'week':
+        return 604800000;
+      case 'month':
+        return 2592000000; //assumes month = 30 days... may need to change?
+      default: 
+        return 0;
     }
   }
 
   parseDataVals(bucketsObj, tStart, tEnd, tStep) {
+    console.log(bucketsObj)
     let returnObj = {
       xVals: [],
       yVals: [],
     }
-    const buckets = Object.values(bucketsObj)
-    
+    const buckets = Object.values(bucketsObj);
+
+    //****************************************************
+    // const timeInterval = this.getTimeInterval(tStep);
+    //****************************************************
+
+    //convert tstart and tend from moments to epoch b/c time data will be in epoch
+    tStart = tStart.valueOf();  //rename
+    tEnd = tEnd.valueOf();  //rename
+
     let timeIterator = tStart;
     let i = 0;
-    while (timeIterator <= tEnd) {
+
+    while (timeIterator < tEnd) {
       let count = 0;
       let dataTotal = 0;
+
       if (buckets[i].startTime === timeIterator) {
         count++;
         dataTotal += buckets[i].data;
@@ -39,43 +69,88 @@ class CardMetricDisplay extends Component {
         returnObj.yVals.push(dataTotal/count);
         count = 0;
         dataTotal = 0;
-        timeIterator += tStep;
+        timeIterator = moment(timeIterator).add(1, tStep).valueOf();
       }
+
       else {
         count++;
         dataTotal += buckets[i].data;
       } 
 
-      i += 1
+      i += 1;
     }
 
     return returnObj;
   }
 
+  servicesExistInState(m, svcs) { //metric, services
+    svcs.forEach((svc) => {
+      if (!m.services[svc]) return false;
+    })
+    return true;
+  }
+
   findRelevantServices(metric, services) {
-    const dataServices = metric.services;
-    const returnArr = services.map((desiredService) => dataServices[desiredService])
-    return returnArr;
+    if (this.servicesExistInState(metric, services)) {
+      const dataServices = metric.services;
+      const returnArr = services.map((desiredService) => dataServices[desiredService])
+      return returnArr;
+    }
+    return [];
+    //if they dont, query for what's missing in diff fxn and that fxn calls setState for data, meanwhile this fxn returns something so graph renders minimally
+  }
+
+  metricsExistInState(ad, m) { //allData (obj), metrics (array)
+    m.forEach((met) => {
+      if (!ad.metrics[met]) return false;
+    })
+    return true;
   }
 
   findRelevantMetrics(allData, metrics) {
-    const dataMetrics = allData.metrics;
-    const returnArr = metrics.map((desiredMetric) => dataMetrics[desiredMetric.id]);
-    return returnArr;
+    if (this.metricsExistInState(allData, metrics)) {
+      const dataMetrics = allData.metrics;
+      const returnArr = metrics.map((desiredMetric) => dataMetrics[desiredMetric.id]);
+      return returnArr;
+    }
+    //if they dont, query for what's missing in diff fxn and that fxn calls setState for data, meanwhile this fxn returns something so graph renders minimally
+    return [];
   }
 
-  generateNewStateParams(allData, desiredMetrics, timeStart, timeEnd, interval) {
+  isQueryValid(momentStart, momentEnd, int) { //timeStart, timeEnd, interval
+    // console.log('hi')
+    const ts = momentStart.valueOf()
+    const te = momentEnd.valueOf()
+   
+    if (ts > Date.now()) return false;
+    if (te > Date.now()) return false;
+    if (te < ts) return false;
+    if ((te - te) < int) return false;
+    return true;
+  }
+
+  generateNewStateParams(allData, desiredMetrics, timeStart, timeEnd, interval) { //timeStart & timeEnd are actually moments (moment.js), .valueOf() gets date in epoch format
+    if (!this.isQueryValid(timeStart, timeEnd, interval)) {
+      alert('invalid query')
+      return [{},{}];
+    };
+    if (timeStart.valueOf() === timeEnd.valueOf()) {
+      // console.log('hey');
+      return [{},{}];
+    }
     let returnDataObj = {};
     let returnButtonArr = [];
-    
+    // console.log('ho')
     const relevantMetrics = this.findRelevantMetrics(allData, desiredMetrics); //returns array of metrics
-    
+    if (!relevantMetrics.length) return [{},{}];
+
     relevantMetrics.forEach((metric, i) => {
       const supportedGraphs = desiredMetrics[i].supportedGraphs
       const initialGraphType = supportedGraphs[desiredMetrics[i].graphIndex];
 
       const relevantServices = this.findRelevantServices(metric, Object.keys(desiredMetrics[i].services)); //returns array of services 
-      
+      if (!relevantServices.length) return [{},{}];
+
       relevantServices.forEach((service, j) => {
         const parsedVals = this.parseDataVals(service.buckets, timeStart, timeEnd, interval) //returns obj w/ xVals & yVals properties 
         const xVals = parsedVals.xVals;
@@ -91,7 +166,7 @@ class CardMetricDisplay extends Component {
           }
         });
 
-        // const buttons = this.generateButtons(dataSetName, supportedGraphs, )
+        // const buttons = this.generateButtons(dataSetName, supportedGraphs, )      <-- for plot layout params (each dataset can toggle its own graphtype with these buttons)
         // returnButtonArr = returnButtonArr.concat(buttons);
       });
     });
@@ -99,18 +174,14 @@ class CardMetricDisplay extends Component {
   }
 
   componentDidMount() {
-    const startTime = this.props.text.timeStart || this.props.text.timeStart === 0 ? parseInt(this.props.text.timeStart) : 0
-    const endTime = this.props.text.timeEnd ? parseInt(this.props.text.timeEnd) : 0
-    const timeStep = this.props.text.timeStep ? parseInt(this.props.text.timeStep) : 0
-
-    // const startTimeTwo = parseInt(this.props.text.timeStart) 
-    // const endTimeTwo = parseInt(this.props.text.timeEnd)
-    // const timeStepTwo = parseInt(this.props.text.timeStep)
-
-    // if (!endTime) return 
-    // const startTime = 0;
-    // const endTime = 6000;
-    // const timeStep = 2000;
+    // console.log('timestart')
+    // console.log(this.props.timeVals.timeStart)
+    // console.log('timeEnd')
+    // console.log(this.props.timeVals.timeEnd)
+    // console.log('blah')
+    const startTime = this.props.timeVals.timeStart ? this.props.timeVals.timeStart : 0;
+    const endTime = this.props.timeVals.timeEnd ? this.props.timeVals.timeEnd : 0;
+    const timeStep = this.props.timeVals.timeStep ? this.props.timeVals.timeStep : '';
     
     const cardMetrics = this.props.card.metrics;
     const cardMetricIds = Object.keys(cardMetrics);
@@ -121,31 +192,18 @@ class CardMetricDisplay extends Component {
     const dataTwo = this.props.dataTwo;
 
     const dataForState = this.generateNewStateParams(dataTwo, whichMetrics, startTime, endTime, timeStep)[0];
+    console.log('dataforstate')
+    console.log(dataForState)
     this.setState({
       data: dataForState, 
-      // cardMetrics: cardMetrics
     });
   }
 
   componentDidUpdate(prevProps) {
-    // console.log('hey')
-    console.log(this.props.text)
-    console.log(prevProps.text)
-    // console.log(this.props.card.metrics)
-    // console.log(prevProps.card.metrics)
-    console.log(this.props.card.metrics !== prevProps.card.metrics)
-    if (this.props.card.metrics !== prevProps.card.metrics || this.props.text !== prevProps.text) {
-      console.log('hi')
-      const startTime = this.props.text.timeStart ? parseInt(this.props.text.timeStart) : 0
-      const endTime = this.props.text.timeEnd ? parseInt(this.props.text.timeEnd) : 0
-      const timeStep = this.props.text.timeStep ? parseInt(this.props.text.timeStep) : 0
-      // const startTime = 0;
-      // const endTime = 6000;
-      // const timeStep = 1000;
-      // console.log(this.props.text)
-      // const startTime = parseInt(this.props.text.startTime)
-      // const endTime = parseInt(this.props.text.endTime)
-      // const timeStep = parseInt(this.props.text.timeStep)
+    if (this.props.card.metrics !== prevProps.card.metrics || this.props.timeVals !== prevProps.timeVals) {
+      const startTime = this.props.timeVals.timeStart ? this.props.timeVals.timeStart : 0
+      const endTime = this.props.timeVals.timeEnd ? this.props.timeVals.timeEnd : 0
+      const timeStep = this.props.timeVals.timeStep ? this.props.timeVals.timeStep : ''
 
       const cardMetrics = this.props.card.metrics;
       const cardMetricIds = Object.keys(cardMetrics);
@@ -154,8 +212,7 @@ class CardMetricDisplay extends Component {
       )
 
       const dataTwo = this.props.dataTwo;
-      // console.log('whichMetrics')
-      // console.log(whichMetrics)
+
       const dataForState = this.generateNewStateParams(dataTwo, whichMetrics, startTime, endTime, timeStep)[0];
       
       this.setState({
@@ -166,9 +223,7 @@ class CardMetricDisplay extends Component {
   }
 
   render() {
-    console.log(this.state.data)
-    const dataForGraph = Object.values(this.state.data);
-    // console.log(dataForGraph)
+    const dataForGraph = Object.values(this.state.data).length ? Object.values(this.state.data) : [];
     
     return (
       <div className='card-metric-display'>
@@ -177,8 +232,7 @@ class CardMetricDisplay extends Component {
           <Plot 
             className='plot'
             data={dataForGraph}
-            // responsive={true}
-            //^ this might work, or need to grab div for card then get the size of it, then have width & height be equations
+            // responsive={true}      <-- this might work, or need to grab div for card then get the size of it, then have width & height be equations
             layout={{
               width: 500, 
               height: 300, 

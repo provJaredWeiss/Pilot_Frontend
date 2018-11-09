@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Card.css';
+import moment from 'moment';
 import CardHeader from '../CardHeader/CardHeader';
 import CardMain from '../CardMain/CardMain';
 import CardFooter from '../CardFooter/CardFooter';
@@ -24,30 +25,32 @@ class Card extends Component {
   constructor() {
     super()
     this.state = {
-      text: {
+      timeVals: {
         // timeStart: '0',
         // timeEnd: '6000',
         // timeStep: '1000',
-        timeStart: '0',
-        timeEnd: '6000',
-        timeStep: '1000',
+        timeStart: moment().startOf('minute'),
+        timeEnd: moment().startOf('minute'),
+        timeStep: 'default',
       }
     }
     this.editTimeFrame = this.editTimeFrame.bind(this);
   }
 
-  editTimeFrame(text) {
-    let currentText = this.state.text;
-    let newText = Object.assign({}, currentText, text)
-    this.setState({text: newText})
+  editTimeFrame(timeVals) {
+    let currentTimeVals = this.state.timeVals;
+    //might need to round to minute HERE
+    //if so, round then convert back to MOMENT
+    let newTimeVals = Object.assign({}, currentTimeVals, timeVals)
+    this.setState({timeVals: newTimeVals})
   }
 
   render() {
     return (
       <div className='card'>
         <CardHeader {...this.props}/>
-        <CardMain text={this.state.text} {...this.props}/>
-        <CardFooter editTimeFrame={this.editTimeFrame} {...this.props}/>
+        <CardMain timeVals={this.state.timeVals} {...this.props}/>
+        <CardFooter timeVals={this.state.timeVals} editTimeFrame={this.editTimeFrame} {...this.props}/>
       </div>
     )
   }
