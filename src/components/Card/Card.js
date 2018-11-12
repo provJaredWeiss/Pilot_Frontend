@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './Card.css';
 import moment from 'moment';
 import CardHeader from '../CardHeader/CardHeader';
-import CardMain from '../CardMain/CardMain';
+// import CardMain from '../CardMain/CardMain';
+import CardMetricContainer from '../../containers/CardMetricContainer';
 import CardFooter from '../CardFooter/CardFooter';
 
 class Card extends Component {
@@ -49,7 +50,7 @@ class Card extends Component {
     return (
       <div className='card'>
         <CardHeader {...this.props}/>
-        <CardMain timeVals={this.state.timeVals} {...this.props}/>
+        <CardMetricContainer timeVals={this.state.timeVals} {...this.props}/>
         <CardFooter timeVals={this.state.timeVals} editTimeFrame={this.editTimeFrame} {...this.props}/>
       </div>
     )

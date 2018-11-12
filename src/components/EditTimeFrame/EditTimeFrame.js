@@ -11,40 +11,31 @@ class EditTimeFrame extends Component {
     super();
     this.state = {                 // <------------------------------ don't need this state, use the state in card and pass down fxns!!!!!!!!!!
       timeVals: {
-        timeStart: moment(),
-        timeEnd: moment(),
+        timeStart: moment().startOf('minute'),
+        timeEnd: moment().startOf('minute'),
         timeStep: 'default',
       }
     };
     this.handleStartChange = this.handleStartChange.bind(this);
     this.handleEndChange = this.handleEndChange.bind(this);
     this.handleTimeStepChange = this.handleTimeStepChange.bind(this);
-    // this.updateTimeStart = this.updateTimeStart.bind(this);
-    // this.updateTimeEnd = this.updateTimeEnd.bind(this);
-    // this.updateTimeStep = this.updateTimeStep.bind(this);
   }
 
   componentDidMount() {
-    // console.log(this.props.timeVals)
     let timeVals = this.props.timeVals;
     this.setState({timeVals})
   }
 
   handleStartChange(date) {
-    //round timeVal to nearest minute
-    console.log(date)
     this.setState({
       timeVals: {
         ...this.state.timeVals,
-        timeStart: date.startOf('minute')
+        timeStart: date.startOf('minute')    //rounds date to nearest minute
       }
     })
   }
 
   handleEndChange(date) {
-    //round timeVal to nearest minute
-        //if so, round then convert back to MOMENT
-
     this.setState({
       timeVals: {
         ...this.state.timeVals,
@@ -62,35 +53,7 @@ class EditTimeFrame extends Component {
     })
   }
 
-  // updateTimeStart(event) {
-  //   this.setState({
-  //     timeVals: {
-  //       ...this.state.timeVals,
-  //       timeStart: event.target.value
-  //     }
-  //   })
-  // }
-
-  // updateTimeEnd(event) {
-  //   this.setState({
-  //     timeVals: {
-  //       ...this.state.timeVals,
-  //       timeEnd: event.target.value
-  //     }
-  //   })
-  // }
-
-  // updateTimeStep(event) {
-  //   this.setState({
-  //     timeVals: {
-  //       ...this.state.timeVals,
-  //       timeStep: event.target.value
-  //     }
-  //   })
-  // }
-
   render() {
-    console.log(this.state)
 
     return (
       <div className='edit-time-frame'>
@@ -112,7 +75,6 @@ class EditTimeFrame extends Component {
         <select
           value={this.state.timeVals.timeStep}
           onChange={this.handleTimeStepChange}
-          // defaultValue={'default'}
         >
           <option value='default'>By: (time interval)</option>
           <option value='second'>second</option>

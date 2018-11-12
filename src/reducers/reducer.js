@@ -336,29 +336,7 @@ const initialState = {
       }
     }
   },
-  data: [
-    {
-      timebenchmark: 0.3, //seconds
-      avgReqsServedPct: 0.95
-    },
-    {
-      timebenchmark: 0.3, //seconds
-      avgReqsServedPct: 0.93
-    },
-    {
-      timebenchmark: 0.3, //seconds
-      avgReqsServedPct: 0.97
-    },
-    {
-      timebenchmark: 0.3, //seconds
-      avgReqsServedPct: 0.94
-    },
-    {
-      timebenchmark: 0.3, //seconds
-      avgReqsServedPct: 0.99
-    }
-  ],
-  dataTwo: { 
+  data: { 
     "metrics": { 
       "0": { //this key is the metricID
         "id": 0,
@@ -872,10 +850,9 @@ const reducer = (state=initialState, action) => {
       return Object.assign({}, state, {
         mainIndex: newMainIndex
       });
-    case types.MODIFY_DATA:
-      const newData = action.newData;
-      return Object.assign({}, state, {
-        data: newData
+    case types.CLEAR_DATA: //eventually instead of clearing data before new query, we will add data to existing state data, just keeping simple for now
+      return Object.assign({}, state, { //^ to do so, flatten data, Object.assign everything, then unflatten? Or does Object.assign work w/ nesting?
+        data: {}
       });
     case types.TOGGLE_EDIT_CARD_MODE:
       const dsindx = action.dataScreenIndex;

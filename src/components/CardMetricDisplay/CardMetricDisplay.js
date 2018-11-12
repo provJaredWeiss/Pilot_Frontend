@@ -16,10 +16,73 @@ class CardMetricDisplay extends Component {
     super();
     this.state = {
       data: {},
-      buttons: [] //this will be for Plotly layout -> buttons (so can toggle each dataset between graph types)
+      buttons: [] //this was to be for Plotly layout-->buttons (so can toggle each dataset between graph types)
     }
   }
-  
+
+  parseDataVals(bucketsObj, tStart, tEnd, tStep) {
+    // console.log(bucketsObj)
+    let returnObj = {
+      xVals: [],
+      yVals: [],
+    }
+    const buckets = Object.values(bucketsObj);
+
+    //convert tstart and tend from moments to epoch b/c time data will be in epoch
+    const ts = tStart.valueOf();  //rename
+    const te = tEnd.valueOf();  //rename
+
+    let timeIterator = ts;
+    let i = 0;
+    while (timeIterator < te) {
+      let count = 0;
+      let dataTotal = 0;
+      if (buckets[i].startTime === timeIterator) {
+        count++;
+        dataTotal += buckets[i].data;
+        returnObj.xVals.push((timeIterator) / count);
+        returnObj.yVals.push(dataTotal/count);
+        count = 0;
+        dataTotal = 0;
+        timeIterator = moment(timeIterator).add(1, tStep).valueOf();
+      } else {
+        count++;
+        dataTotal += buckets[i].data;
+      } 
+      i += 1;
+    }
+
+    return returnObj;
+  }
+
+  servicesExistInState(m, svcs) { //metric, services (object)'
+    if (!Object.keys(m).length) return false;
+    Object.keys(svcs).forEach((svcIndex) => {
+      if (!m.services[svcIndex]) return false;
+    })
+    return true;
+  }
+
+  findRelevantServices(metric, services) {
+    const dataServices = metric.services;
+    const returnArr = services.map((desiredService) => dataServices[desiredService])
+    return returnArr;
+  }
+
+  metricsExistInState(ad, m) { //allData (obj), metrics (array)
+    if (!Object.keys(ad).length) return false;
+    m.forEach((metricID) => {
+      if (!ad.metrics[metricID]) return false;
+    })
+    return true;
+  }
+
+  findRelevantMetrics(allData, metrics) {
+    const dataMetrics = allData.metrics;
+    const returnArr = metrics.map((desiredMetric) => dataMetrics[desiredMetric.id]);
+    return returnArr;
+  }
+
   getTimeInterval(timeStepText) {
     switch(timeStepText) {
       case 'second':
@@ -39,117 +102,37 @@ class CardMetricDisplay extends Component {
     }
   }
 
-  parseDataVals(bucketsObj, tStart, tEnd, tStep) {
-    console.log(bucketsObj)
-    let returnObj = {
-      xVals: [],
-      yVals: [],
-    }
-    const buckets = Object.values(bucketsObj);
-
-    //****************************************************
-    // const timeInterval = this.getTimeInterval(tStep);
-    //****************************************************
-
-    //convert tstart and tend from moments to epoch b/c time data will be in epoch
-    tStart = tStart.valueOf();  //rename
-    tEnd = tEnd.valueOf();  //rename
-
-    let timeIterator = tStart;
-    let i = 0;
-
-    while (timeIterator < tEnd) {
-      let count = 0;
-      let dataTotal = 0;
-
-      if (buckets[i].startTime === timeIterator) {
-        count++;
-        dataTotal += buckets[i].data;
-        returnObj.xVals.push((timeIterator) / count);
-        returnObj.yVals.push(dataTotal/count);
-        count = 0;
-        dataTotal = 0;
-        timeIterator = moment(timeIterator).add(1, tStep).valueOf();
-      }
-
-      else {
-        count++;
-        dataTotal += buckets[i].data;
-      } 
-
-      i += 1;
-    }
-
-    return returnObj;
-  }
-
-  servicesExistInState(m, svcs) { //metric, services
-    svcs.forEach((svc) => {
-      if (!m.services[svc]) return false;
-    })
-    return true;
-  }
-
-  findRelevantServices(metric, services) {
-    if (this.servicesExistInState(metric, services)) {
-      const dataServices = metric.services;
-      const returnArr = services.map((desiredService) => dataServices[desiredService])
-      return returnArr;
-    }
-    return [];
-    //if they dont, query for what's missing in diff fxn and that fxn calls setState for data, meanwhile this fxn returns something so graph renders minimally
-  }
-
-  metricsExistInState(ad, m) { //allData (obj), metrics (array)
-    m.forEach((met) => {
-      if (!ad.metrics[met]) return false;
-    })
-    return true;
-  }
-
-  findRelevantMetrics(allData, metrics) {
-    if (this.metricsExistInState(allData, metrics)) {
-      const dataMetrics = allData.metrics;
-      const returnArr = metrics.map((desiredMetric) => dataMetrics[desiredMetric.id]);
-      return returnArr;
-    }
-    //if they dont, query for what's missing in diff fxn and that fxn calls setState for data, meanwhile this fxn returns something so graph renders minimally
-    return [];
-  }
-
   isQueryValid(momentStart, momentEnd, int) { //timeStart, timeEnd, interval
     // console.log('hi')
     const ts = momentStart.valueOf()
     const te = momentEnd.valueOf()
    
-    if (ts > Date.now()) return false;
-    if (te > Date.now()) return false;
-    if (te < ts) return false;
-    if ((te - te) < int) return false;
+    if (ts > Date.now()) return false; //start time of query is a later date than the present moment
+    if (te > Date.now()) return false; //end time of query is a later date than the present moment
+    if (te < ts) return false; //start time is later than end time
+    if ((te - ts) < this.getTimeInterval(int)) return false; //time step is greater than time difference b/w start and end time
     return true;
   }
 
   generateNewStateParams(allData, desiredMetrics, timeStart, timeEnd, interval) { //timeStart & timeEnd are actually moments (moment.js), .valueOf() gets date in epoch format
     if (!this.isQueryValid(timeStart, timeEnd, interval)) {
-      alert('invalid query')
+      alert('invalid query');
       return [{},{}];
     };
     if (timeStart.valueOf() === timeEnd.valueOf()) {
-      // console.log('hey');
       return [{},{}];
     }
     let returnDataObj = {};
     let returnButtonArr = [];
-    // console.log('ho')
+    if (!this.metricsExistInState(allData, desiredMetrics)) return [{},{}];
     const relevantMetrics = this.findRelevantMetrics(allData, desiredMetrics); //returns array of metrics
-    if (!relevantMetrics.length) return [{},{}];
 
     relevantMetrics.forEach((metric, i) => {
-      const supportedGraphs = desiredMetrics[i].supportedGraphs
+      const supportedGraphs = desiredMetrics[i].supportedGraphs;
       const initialGraphType = supportedGraphs[desiredMetrics[i].graphIndex];
 
+      if (!this.servicesExistInState(metric, desiredMetrics[i].services)) return [{},{}];
       const relevantServices = this.findRelevantServices(metric, Object.keys(desiredMetrics[i].services)); //returns array of services 
-      if (!relevantServices.length) return [{},{}];
 
       relevantServices.forEach((service, j) => {
         const parsedVals = this.parseDataVals(service.buckets, timeStart, timeEnd, interval) //returns obj w/ xVals & yVals properties 
@@ -174,11 +157,6 @@ class CardMetricDisplay extends Component {
   }
 
   componentDidMount() {
-    // console.log('timestart')
-    // console.log(this.props.timeVals.timeStart)
-    // console.log('timeEnd')
-    // console.log(this.props.timeVals.timeEnd)
-    // console.log('blah')
     const startTime = this.props.timeVals.timeStart ? this.props.timeVals.timeStart : 0;
     const endTime = this.props.timeVals.timeEnd ? this.props.timeVals.timeEnd : 0;
     const timeStep = this.props.timeVals.timeStep ? this.props.timeVals.timeStep : '';
@@ -189,14 +167,10 @@ class CardMetricDisplay extends Component {
       Object.assign(cardMetrics[cardMetricID], this.props.metricInfo[cardMetricID])
     );
 
-    const dataTwo = this.props.dataTwo;
+    const data = this.props.data;
+    const dataForState = this.generateNewStateParams(data, whichMetrics, startTime, endTime, timeStep)[0];
 
-    const dataForState = this.generateNewStateParams(dataTwo, whichMetrics, startTime, endTime, timeStep)[0];
-    console.log('dataforstate')
-    console.log(dataForState)
-    this.setState({
-      data: dataForState, 
-    });
+    this.setState({data: dataForState});
   }
 
   componentDidUpdate(prevProps) {
@@ -211,13 +185,12 @@ class CardMetricDisplay extends Component {
         Object.assign(cardMetrics[cardMetricID], this.props.metricInfo[cardMetricID])
       )
 
-      const dataTwo = this.props.dataTwo;
-
-      const dataForState = this.generateNewStateParams(dataTwo, whichMetrics, startTime, endTime, timeStep)[0];
+      const data = this.props.data;
+      const dataForState = this.generateNewStateParams(data, whichMetrics, startTime, endTime, timeStep)[0];
       
-      this.setState({
-        data: dataForState, 
-      })
+      this.setState({data: dataForState}, () => {
+        if (!Object.keys(dataForState).length) this.props.requestData(data, whichMetrics, startTime, endTime, timeStep)
+      });
     }
     else return null;
   }

@@ -42,9 +42,8 @@ export const toggleMetric = (metricID, alreadyChosen, dataScreenIndex, selectedC
   selectedCardIndex
 });
 
-export const modifyData = (newData) => ({
-  type: types.MODIFY_DATA,
-  newData
+export const clearData = () => ({
+  type: types.CLEAR_DATA,
 });
 
 export const toggleGraph = (newGraphIndex, dataScreenIndex, cardIndex) => ({
@@ -66,3 +65,25 @@ export const toggleEditMetricMode = (dataScreenIndex, cardIndex, metricIndex) =>
   cardIndex,
   metricIndex
 });
+
+
+const deliverData = (data) => ({
+  type: types.DELIVER_DATA,
+  data
+})
+
+function fetchData(url) {
+  return fetch(url)
+}
+
+export const requestData = (url) => {
+  return (dispatch) => {
+    dispatch(clearData()) //remove this once functionality exists to add data to existing data
+    return fetchData(url)
+      .then(res => res.json())
+      .then((data) => dispatch(deliverData(data)))
+      .catch(err => {
+        console.log('data not found')
+      })
+  }
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import App from '../App';
 import './AppContainer.css';
-import { switchScreen, switchDataScreen, switchMainTab, toggleService, toggleMetric, modifyData } from '../actions/actions';
+import { switchScreen, switchDataScreen, switchMainTab, toggleService, toggleMetric } from '../actions/actions';
 
 const mapStateToProps = state => ({
   whichScreen: state.whichScreen,
@@ -23,7 +23,6 @@ const mapStateToProps = state => ({
   clusterInfo: state.clusterInfo,
   editMetricMode: state.editMetricMode,
   whichMetric: state.whichMetric,
-  dataTwo: state.dataTwo
   // modifiers: state.modifiers
 });
 
@@ -33,7 +32,6 @@ const mapDispatchToProps = dispatch => ({
   switchDataScreen: (newDataScreenIndex) => dispatch(switchDataScreen(newDataScreenIndex)),
   switchMainTab: (newMainIndex) => dispatch(switchMainTab(newMainIndex)),
   // switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
-  modifyData: (data) => dispatch(modifyData(data)),
   toggleService: (serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex, whichMetric) => dispatch(toggleService(serviceIndex, alreadyChosen, dataScreenIndex, selectedCardIndex, whichMetric)),
   toggleMetric: (metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex) => dispatch(toggleMetric(metricIndex, alreadyChosen, dataScreenIndex, selectedCardIndex)),
 });

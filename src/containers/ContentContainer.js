@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ContentNav from '../components/ContentNav/ContentNav';
 import ContentSection from '../components/ContentSection/ContentSection';
 import './ContentContainer.css';
-import { switchScreen, switchDataScreen, switchMainTab, switchService, modifyData } from '../actions/actions';
+import { switchScreen, switchDataScreen, switchMainTab, switchService } from '../actions/actions';
 
 const mapStateToProps = state => ({
   whichScreen: state.whichScreen,
@@ -26,7 +26,6 @@ const mapDispatchToProps = dispatch => ({
   switchDataScreen: (newDataScreenIndex) => dispatch(switchDataScreen(newDataScreenIndex)),
   switchMainTab: (newMainIndex) => dispatch(switchMainTab(newMainIndex)),
   switchService: (newServiceIndex) => dispatch(switchService(newServiceIndex)),
-  modifyData: (data) => dispatch(modifyData(data))
 });
 
 class ContentContainer extends Component {
